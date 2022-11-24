@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1910070450}
   - component: {fileID: 1910070449}
   m_Layer: 0
-  m_Name: ArmeModele
+  m_Name: Javascript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 18
+      scalar: 24
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1356,7 +1356,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.9198622
+      scalar: 2.6179938
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2

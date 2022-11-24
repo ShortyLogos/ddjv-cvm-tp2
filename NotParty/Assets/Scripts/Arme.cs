@@ -6,25 +6,25 @@ using UnityEngine;
 
 public class Arme : MonoBehaviour
 {
-    public ParticleSystem arme;
+    public GameObject arme;
 
     // Start is called before the first frame update
     void Start()
     {
-        arme = GetComponent<ParticleSystem>();
+        arme.GetComponent<ParticleSystem>().Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown("space"))
-        {
-            arme.Play();
+         {
+            arme.GetComponent<ParticleSystem>().Play();
         }
 
         if (Input.GetKeyUp("space"))
         {
-            arme.Stop();
+            arme.GetComponent<ParticleSystem>().Stop();
         }
     }
 }
