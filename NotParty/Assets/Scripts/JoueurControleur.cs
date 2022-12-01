@@ -7,7 +7,7 @@ public class JoueurControleur : MonoBehaviour
 {
     private Rigidbody2D rig;
     private SpriteRenderer rendu;
-    //private Animator anim;
+    private Animator anim;
     private bool vivant = true;
     private bool startedMoving = false;
     private bool invincible;
@@ -27,7 +27,7 @@ public class JoueurControleur : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         rendu = GetComponent<SpriteRenderer>();
         //sceneManager = GameObject.FindWithTag("SceneManager");
 
@@ -37,36 +37,44 @@ public class JoueurControleur : MonoBehaviour
 
     void Update()
     {
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        if (Mathf.Abs(inputX) > 0.01f || Mathf.Abs(inputY) > 0.01f)
         {
-            float inputX = Input.GetAxisRaw("Horizontal");
-            float inputY = Input.GetAxisRaw("Vertical");
-            if (Mathf.Abs(inputX) > 0.01f || Mathf.Abs(inputY) > 0.01f)
-            {
-                startedMoving = true;
-            }
-
-            if (vivant && startedMoving)
-            {
-                mouvement.x = inputX;
-                mouvement.y = inputY;
-            }
-
-            //anim.SetFloat("moveX", mouvement.x);
-            //anim.SetFloat("moveY", mouvement.y);
-
-            float speed = 0.0f;
-            if (startedMoving)
-            {
-                speed = mouvement.sqrMagnitude;
-            }
-            //anim.SetFloat("Speed", speed);
-
-            //if (mouvement.x == 1 || mouvement.x == -1 || mouvement.y == 1 || mouvement.y == -1)
-            //{
-            //    anim.SetFloat("lastMoveX", mouvement.x);
-            //    anim.SetFloat("lastMoveY", mouvement.y);
-            //}
+            startedMoving = true;
         }
+
+        if (vivant && startedMoving)
+        {
+            mouvement.x = inputX;
+            mouvement.y = inputY;
+        }
+
+        anim.SetFloat("mouseX", mousePos.x);
+        anim.SetFloat("mouseY", mousePos.y);
+
+        //anim.SetFloat("moveX", mouvement.x);
+        //anim.SetFloat("moveY", mouvement.y);
+
+        float speed = 0.0f;
+        if (startedMoving)
+        {
+            speed = mouvement.sqrMagnitude;
+        }
+
+        anim.SetFloat("speed", speed);
+        //anim.SetFloat("Speed", speed);
+
+        //if (mouvement.x == 1 || mouvement.x == -1 || mouvement.y == 1 || mouvement.y == -1)
+        //{
+        //    anim.SetFloat("lastMoveX", mouvement.x);
+        //    anim.SetFloat("lastMoveY", mouvement.y);
+        //}
+        
+
+        Debug.Log(speed);
     }
 
     void FixedUpdate()
