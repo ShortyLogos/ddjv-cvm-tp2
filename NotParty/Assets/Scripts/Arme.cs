@@ -17,12 +17,12 @@ public class Arme : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-         {
+        if (Input.GetMouseButtonDown(0))
+        {
             arme.GetComponent<ParticleSystem>().Play();
         }
 
-        if (Input.GetKeyUp("space"))
+        if (Input.GetMouseButtonUp(0))
         {
             arme.GetComponent<ParticleSystem>().Stop();
         }
