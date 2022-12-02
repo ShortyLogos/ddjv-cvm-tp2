@@ -31,7 +31,9 @@ public class ArmeCourante : MonoBehaviour
             arme.GetComponent<ParticleSystem>().Stop();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        bool cycleGauche = Input.GetKeyDown(KeyCode.Q);
+        bool cycleDroite = Input.GetKeyDown(KeyCode.E);
+        if (cycleDroite || cycleGauche)
         {
             if (arme != null)
             {
@@ -40,9 +42,19 @@ public class ArmeCourante : MonoBehaviour
 
             if (inventaire.liste.Count > 0)
             {
-                indexArme++;
+                if (cycleDroite)
+                {
+                    indexArme++;
+                }
+                else
+                {
+                    indexArme--;
+                }
+
                 indexArme = indexArme % inventaire.liste.Count;
-                arme = inventaire.liste[indexArme];
+
+                arme = inventaire.liste[Mathf.Abs(indexArme)];
+                Debug.Log(indexArme);
             }
 
             if (Input.GetMouseButton(0) && arme != null)

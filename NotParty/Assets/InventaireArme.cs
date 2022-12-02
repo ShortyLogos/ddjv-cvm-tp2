@@ -24,6 +24,20 @@ public class InventaireArme : MonoBehaviour
 
     public void ajoutArme(GameObject arme)
     {
-        liste.Add(arme);
+        bool nouvelle = true;
+        string nomArme = arme.GetComponent<ArmeLanguage>().nom;
+
+        foreach (GameObject armePossedee in liste)
+        {
+            if (armePossedee.GetComponent<ArmeLanguage>().nom.Equals(nomArme) && nouvelle)
+            {
+                nouvelle = false;
+            }
+        }
+
+        if (nouvelle)
+        {
+            liste.Add(arme);
+        }
     }
 }
