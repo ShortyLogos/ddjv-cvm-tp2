@@ -22,7 +22,7 @@ public class InventaireArme : MonoBehaviour
         
     }
 
-    void ajoutArme(GameObject arme)
+    public void ajoutArme(GameObject arme)
     {
         liste.Add(arme);
     }
