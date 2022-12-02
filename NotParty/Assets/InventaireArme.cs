@@ -16,28 +16,33 @@ public class InventaireArme : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ajoutArme(GameObject arme)
     {
         bool nouvelle = true;
         string nomArme = arme.GetComponent<ArmeLanguage>().nom;
 
+        int i = 0;
+        int index = 0;
         foreach (GameObject armePossedee in liste)
         {
             if (armePossedee.GetComponent<ArmeLanguage>().nom.Equals(nomArme) && nouvelle)
             {
+                index = i;
                 nouvelle = false;
             }
+
+            i++;
         }
 
         if (nouvelle)
         {
             liste.Add(arme);
+            this.gameObject.GetComponent<ArmeCourante>().NouvelleArme();
+        }
+        else
+        {
+            this.gameObject.GetComponent<ArmeCourante>().ChangerArme(index);
+            Debug.Log(index);
         }
     }
 }

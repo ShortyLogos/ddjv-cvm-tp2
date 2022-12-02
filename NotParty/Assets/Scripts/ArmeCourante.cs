@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,6 +67,30 @@ public class ArmeCourante : MonoBehaviour
 
     public void SetArme(GameObject nouvelleArme)
     {
+        bool tireActuellement = false;
+        if (arme != null && arme.GetComponent<ParticleSystem>().isPlaying)
+        {
+            tireActuellement = true;
+            arme.GetComponent<ParticleSystem>().Stop();
+        }
         arme = nouvelleArme;
+
+        if (tireActuellement || Input.GetMouseButton(0))
+        {
+            arme.GetComponent<ParticleSystem>().Play();
+        }
+    }
+
+    public void NouvelleArme()
+    {
+        SetArme(inventaire.liste.Last());
+        indexArme = inventaire.liste.Count - 1;
+    }
+
+    public void ChangerArme(int index)
+    {
+        Debug.Log(index);
+        indexArme = index;
+        SetArme(inventaire.liste[index]);
     }
 }
