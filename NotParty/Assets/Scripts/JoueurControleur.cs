@@ -72,9 +72,6 @@ public class JoueurControleur : MonoBehaviour
         //    anim.SetFloat("lastMoveX", mouvement.x);
         //    anim.SetFloat("lastMoveY", mouvement.y);
         //}
-        
-
-        Debug.Log(speed);
     }
 
     void FixedUpdate()
