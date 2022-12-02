@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ArmeLanguage : MonoBehaviour
 {
-    [SerializeField]
-    private string nom;
+    public string nom;
 
     [SerializeField]
     private int efficacite;
@@ -23,9 +22,9 @@ public class ArmeLanguage : MonoBehaviour
     void OnParticleCollision(GameObject collision)
     {
         if (collision.tag == "Travail" || collision.tag == "Distraction")
-            // Ici, on va récupérer le gameObject collision et modifier sa variable de progression (Travail) ou vie (Distraction)
-            // selon l'efficacité de l'arme sélectionnée
-        collision.GetComponent<VulnerableArme>().degatAccumule += efficacite;
-        Debug.Log(collision.GetComponent<VulnerableArme>().degatAccumule);
+        {
+            collision.GetComponent<VulnerableArme>().degatAccumule += efficacite;
+            Debug.Log(collision.GetComponent<VulnerableArme>().degatAccumule);
+        }
     }
 }
