@@ -23,8 +23,8 @@ public class LootArme : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Joueur"))
         {
-            Debug.Log("beubye");
             Destroy(this.gameObject);
+            collision.gameObject.GetComponent<InventaireArme>().ajoutArme(loot);
         }
     }
 }

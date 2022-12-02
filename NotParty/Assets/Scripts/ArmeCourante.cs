@@ -14,31 +14,41 @@ public class ArmeCourante : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        arme.GetComponent<ParticleSystem>().Stop();
+        //arme.GetComponent<ParticleSystem>().Stop();
         inventaire = GetComponent<InventaireArme>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Je cycle vers la droite");
-
-            indexArme++;
-            indexArme = indexArme % inventaire.liste.Count;
-            arme = inventaire.liste[indexArme];
-            Debug.Log(indexArme);
-        }
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && arme != null)
         {
             arme.GetComponent<ParticleSystem>().Play();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && arme != null)
         {
             arme.GetComponent<ParticleSystem>().Stop();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (arme != null)
+            {
+                arme.GetComponent<ParticleSystem>().Stop();
+            }
+
+            if (inventaire.liste.Count > 0)
+            {
+                indexArme++;
+                indexArme = indexArme % inventaire.liste.Count;
+                arme = inventaire.liste[indexArme];
+            }
+
+            if (Input.GetMouseButton(0) && arme != null)
+            {
+                arme.GetComponent<ParticleSystem>().Play();
+            }
         }
     }
 
