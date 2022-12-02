@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class VulnerableArme : MonoBehaviour
 {
-    public int progressionTravail = 0;
+    [SerializeField]
+    private string nom;
+
+    public int degatAccumule; // ce à quoi l'on va comparer la progression
+    public int vieMax; // ce à quoi l'on va comparer la progression
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +19,9 @@ public class VulnerableArme : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void OnParticleCollision(GameObject other)
-    {
-        progressionTravail += 1;
-        Debug.Log(progressionTravail);
+        if (degatAccumule >= vieMax)
+        {
+            Debug.Log("Niveau complété.");
+        }
     }
 }

@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - FadeScreen
+  - Cplusplus
+  - Javascript
+  - Distraction
+  - Travail
+  - Environment
   layers:
   - Default
   - TransparentFX
