@@ -42,7 +42,6 @@ public class InventaireArme : MonoBehaviour
         else
         {
             this.gameObject.GetComponent<ArmeCourante>().ChangerArme(index);
-            Debug.Log(index);
         }
     }
 }
