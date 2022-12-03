@@ -8,18 +8,24 @@ public class JoueurControleur : MonoBehaviour
     private Rigidbody2D rig;
     private SpriteRenderer rendu;
     private Animator anim;
+    private TrailRenderer dashTrail;
     private bool vivant = true;
     private bool startedMoving = false;
     private bool invincible;
+    private bool dashing;
+    private bool peutDasher = true;
 
     [SerializeField]
     private Vector3 mouvement = new Vector3(0.0f, 0.0f, 0.0f);
 
-    //[SerializeField]
-    //private GameObject 
-            //animationMort, 
-            //pouletRoti, 
-            //sceneManager;
+    [SerializeField]
+    private float dashSpeed = 8.0f;
+
+    [SerializeField]
+    private float dashDuration = 0.5f;
+
+    [SerializeField]
+    private float dashCooldown = 1.35f;
 
     [SerializeField]
     private float speed;
@@ -29,9 +35,11 @@ public class JoueurControleur : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         rendu = GetComponent<SpriteRenderer>();
+        dashTrail = GetComponent<TrailRenderer>();
         //sceneManager = GameObject.FindWithTag("SceneManager");
 
         invincible = false;
+        dashing = false;
         mouvement.z = 0.0f;
     }
 
@@ -55,9 +63,6 @@ public class JoueurControleur : MonoBehaviour
         anim.SetFloat("mouseX", mousePos.x);
         anim.SetFloat("mouseY", mousePos.y);
 
-        //anim.SetFloat("moveX", mouvement.x);
-        //anim.SetFloat("moveY", mouvement.y);
-
         float speed = 0.0f;
         if (startedMoving)
         {
@@ -65,21 +70,42 @@ public class JoueurControleur : MonoBehaviour
         }
 
         anim.SetFloat("speed", speed);
-        //anim.SetFloat("Speed", speed);
 
-        //if (mouvement.x == 1 || mouvement.x == -1 || mouvement.y == 1 || mouvement.y == -1)
-        //{
-        //    anim.SetFloat("lastMoveX", mouvement.x);
-        //    anim.SetFloat("lastMoveY", mouvement.y);
-        //}
+        if (Input.GetKeyDown(KeyCode.Space) && !dashing && peutDasher)
+        {
+            StartCoroutine(CDash());
+        }
     }
 
     void FixedUpdate()
     {
         if (startedMoving)
         {
-            rig.velocity = mouvement.normalized * speed;
+            if (!dashing)
+            {
+                rig.velocity = mouvement.normalized * speed;
+            }
+            else
+            {
+                rig.AddForce(mouvement.normalized * dashSpeed, ForceMode2D.Force);
+            }
         }
+    }
+
+    IEnumerator CDash()
+    {
+        dashing = true;
+        peutDasher = false;
+        dashTrail.emitting = true;
+        anim.speed = 1.75f;
+        yield return new WaitForSeconds(dashDuration);
+
+        dashing = false;
+        dashTrail.emitting = false;
+        anim.speed = 1.0f;
+        yield return new WaitForSeconds(dashCooldown);
+
+        peutDasher = true;
     }
 
     //private void OnTriggerEnter2D(Collider2D collision)
@@ -103,30 +129,6 @@ public class JoueurControleur : MonoBehaviour
     //    {
     //        speed *= 2.0f;
     //    }
-    //}
-
-    //public void Celebrate()
-    //{
-    //    StartCoroutine(CCelebration());
-    //}
-
-    //IEnumerator CCelebration()
-    //{
-    //    invincible = true;
-    //    vivant = false;
-    //    speed = 0.25f;
-    //    mouvement = new Vector3(-1.0f, 0.0f, 0.0f);
-    //    yield return new WaitForSeconds(3.0f);
-    //    mouvement = new Vector3(0.0f, 0.0f, 0.0f);
-    //    yield return new WaitForSeconds(5.0f);
-    //    mouvement = new Vector3(1.0f, 0.0f, 0.0f);
-    //    yield return new WaitForSeconds(6.0f);
-    //    mouvement = new Vector3(0.0f, 0.0f, 0.0f);
-    //    yield return new WaitForSeconds(5.0f);
-    //    mouvement = new Vector3(-1.0f, 0.0f, 0.0f);
-    //    yield return new WaitForSeconds(3.0f);
-    //    mouvement = new Vector3(0.0f, 0.0f, 0.0f);
-    //    GameObject.FindWithTag("SceneManager").GetComponent<GestionScene>().LoadProchaineScene(true);
     //}
 
     //IEnumerator CMort()
