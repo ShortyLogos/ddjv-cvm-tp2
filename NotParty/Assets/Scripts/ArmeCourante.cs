@@ -55,7 +55,6 @@ public class ArmeCourante : MonoBehaviour
                 indexArme = indexArme % inventaire.liste.Count;
 
                 arme = inventaire.liste[Mathf.Abs(indexArme)];
-                Debug.Log(indexArme);
             }
 
             if (Input.GetMouseButton(0) && arme != null)
@@ -89,7 +88,6 @@ public class ArmeCourante : MonoBehaviour
 
     public void ChangerArme(int index)
     {
-        Debug.Log(index);
         indexArme = index;
         SetArme(inventaire.liste[index]);
     }
