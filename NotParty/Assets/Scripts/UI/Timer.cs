@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private Image uiFill;
     [SerializeField] private TextMeshProUGUI uiText;
+    [SerializeField] private GameObject gameHandler;
 
     public int Duration;
 
@@ -42,6 +43,7 @@ public class Timer : MonoBehaviour
     private void OnEnd()
     {
         //End Time, if want do something
-        print("End");
+        Debug.Log("End");
+        gameHandler.GetComponent<GameHandler>().Defeat();
     }
 }

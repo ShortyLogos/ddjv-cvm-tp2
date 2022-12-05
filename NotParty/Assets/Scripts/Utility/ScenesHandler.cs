@@ -10,6 +10,9 @@ public class ScenesHandler: MonoBehaviour
 
     private List<string> levelsList = new List<string>();
     private float previousTimeScale = 1;
+
+    private bool teachersWatching = false;
+
     private static bool isPaused;
     public bool IsPaused
     {
@@ -118,15 +121,9 @@ public class ScenesHandler: MonoBehaviour
         if(fadeScreen != null)
         {
             delai = fadeScreen.GetComponent<FadeScreen>().FadeOut();
-        } else
+        } else if (Application.isEditor)
         {
-            if (Application.isEditor)
-            {
-                if (Application.isEditor)
-                {
-                    Debug.LogError("Aucun objet avec le Tag FadeScreen n'a été trouvé.");
-                }
-            }
+            Debug.LogError("No objet with the tag FadeScreen have been found.");
         }
         return delai;
     }
@@ -151,12 +148,9 @@ public class ScenesHandler: MonoBehaviour
     {
         delai += ActivateFadeOut();
         yield return StartCoroutine(Utility.WaitForRealSeconds(delai));
-        if (Application.isEditor)
+        if (Application.isEditor && !teachersWatching)
         {
-            if (Application.isEditor)
-            {
-                Debug.Log("Screw you guys, i'm going home! -Cartman");
-            }
+            Debug.Log("Screw you guys, i'm going home! -Cartman");
         }
         Application.Quit();
     }

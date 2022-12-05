@@ -17,6 +17,9 @@ public class StatsSystem : MonoBehaviour
         }
     }
 
+	[SerializeField] private GameObject gameHandler;
+	[SerializeField] private bool GodMode;
+
 	[SerializeField] private Image currentHeatBar;
 	[SerializeField] private float heatLevel = 0f;
 	[SerializeField] private float maxHeat = 100f;
@@ -36,7 +39,6 @@ public class StatsSystem : MonoBehaviour
 	private float timeleft = 0.0f;	// Left time for current interval
 	[SerializeField] private float regenUpdateInterval = 1f;
 
-	[SerializeField] private bool GodMode;
 
 	//==============================================================
 	// Awake
@@ -147,8 +149,12 @@ public class StatsSystem : MonoBehaviour
 	public void Progress(float amount)
 	{
 		progress += amount;
-		if (progress > maxProgress) 
+		if (progress > maxProgress || progress == maxProgress)
+        {
 			progress = maxProgress;
+			StartCoroutine(CCompleteProject());
+        } 
+			
 
 		UpdateGraphics();
 	}
@@ -202,13 +208,23 @@ public class StatsSystem : MonoBehaviour
 	}
 
 	//==============================================================
-	// Weapon is overheating
+	// Coroutine Weapon is overheating
 	//==============================================================
 	IEnumerator Overheat()
 	{
 		// Weapon is unusable until it cool down. Do stuff.. play anim, sound..
 		PopupText.Instance.Popup("Weapon overheating!", 1f, 1f);
 
+		yield return null;
+	}
+
+	//==============================================================
+	// Coroutine Progress is complete
+	//==============================================================
+	private IEnumerator CCompleteProject()
+	{
+		// Won the game or whatever. Do stuff.. play anim, sound..
+		gameHandler.GetComponent<GameHandler>().Victory();
 		yield return null;
 	}
 }
