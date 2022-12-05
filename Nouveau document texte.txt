@@ -1,0 +1,24 @@
+boost:
+  - cafe & monsters (accelere cadence tire)
+  - greve etudiante (give back 5 secondes)
+
+Ennemis:
+  - Depression (ralentis cadence tir)
+  - invitations (diminue temps restant)
+  - bugs (jauge progression racourcis)
+
+Armes:
+  - C++ (précis et gros mais lent)
+  - Javascript (rapide mais tout croche)
+  - Java (shotgun)
+
+Travaux:
+  - teleport
+  - invincible temp
+  - bounce
+  - scale up and down
+
+Autres:
+  - jauge progression
+  - temps restant
+  - cooldown gun

@@ -35,6 +35,7 @@ public class FadeScreen: MonoBehaviour
     private float decrementation = 0.01f;
 
     private Image rendu;
+    private Canvas canvas;
 
     private void OnValidate()
     {
@@ -46,6 +47,8 @@ public class FadeScreen: MonoBehaviour
     void Start()
     {
         gameObject.tag = "FadeScreen";
+        canvas = gameObject.GetComponentInParent<Canvas>();
+
 
         if (fadeIn)
         {
@@ -112,6 +115,8 @@ public class FadeScreen: MonoBehaviour
 
             yield return StartCoroutine(Utility.WaitForRealSeconds(vitesseFadeIn));
         }
+
+        canvas.enabled = false;
     }
 
     private IEnumerator CFadeOut(bool skipDelai)
@@ -120,6 +125,8 @@ public class FadeScreen: MonoBehaviour
         {
             yield return StartCoroutine(Utility.WaitForRealSeconds(delai));
         }
+
+        canvas.enabled = true;
 
         Color couleur = rendu.color;
         float alpha = couleur.a;
