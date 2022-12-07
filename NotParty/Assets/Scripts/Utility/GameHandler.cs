@@ -9,10 +9,10 @@ public class GameHandler : MonoBehaviour
 
     // TODO: Arrange cooldown for dash or multiple weapons instead or only flamer
     // TODO: Add headers to stats code editor
-    // TODO: Plug stats with character and ennemies
     // TODO: Decide if we want default weapon or not
     // TODO: Manage key input to open menu & cheatcodes (godmode)
     // TODO: Add dispenser methods here and some of the variables from stats
+    // TODO: Connecter Score affiché avec script score
 
     [SerializeField] private HighScoreHandler highscoreHandler;
     [SerializeField] private ScenesHandler sceneHandler;

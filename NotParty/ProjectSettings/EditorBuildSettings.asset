@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BaseArme.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Levels/New Scene.unity
+    guid: a8d4843f398e0e049906b0adb0a2617b
+  - enabled: 1
     path: Assets/Scenes/ShutDown.unity
     guid: f7f3050ec0a80a0428a99fdaa417d90b
   m_configObjects: {}

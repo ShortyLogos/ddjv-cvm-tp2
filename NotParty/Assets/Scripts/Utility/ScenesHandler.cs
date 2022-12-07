@@ -83,7 +83,7 @@ public class ScenesHandler: MonoBehaviour
         string newScene = "";
         if (levelsList.Count>0)
         {
-            string currentScene = "Scenes/Levels" + SceneManager.GetActiveScene().name;
+            string currentScene = "Scenes/Levels/" + SceneManager.GetActiveScene().name;
             do
             {
                 int randomIndex = (int)Mathf.Floor(Random.Range(0.0f, (float)levelsList.Count));
@@ -98,7 +98,7 @@ public class ScenesHandler: MonoBehaviour
 
     private void BuildLevelList()
     {
-        DirectoryInfo dir = new DirectoryInfo("Assets/Scenes/Levels");
+        DirectoryInfo dir = new DirectoryInfo("Assets/Scenes/Levels/");
         string extension = ".unity";
         FileInfo[] filesList = dir.GetFiles();
         foreach (FileInfo file in filesList) {
@@ -106,7 +106,7 @@ public class ScenesHandler: MonoBehaviour
             if (fileName.EndsWith(extension))
             {
                 string cleanName = Path.GetFileNameWithoutExtension(fileName);
-                levelsList.Add("Scenes/Levels" + cleanName);
+                levelsList.Add("Scenes/Levels/" + cleanName);
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using float_oat.Desktop90;
 
 //@Source: https://www.youtube.com/watch?v=2gPHkaPGbpI
 
@@ -10,6 +11,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private Image uiFill;
     [SerializeField] private TextMeshProUGUI uiText;
+    [SerializeField] private GameObject defeatWindow;
     [SerializeField] private GameObject gameHandler;
 
     public int Duration;
@@ -32,7 +34,7 @@ public class Timer : MonoBehaviour
     {
         while (remainingDuration >= 0)
         {
-            uiText.text = $"{remainingDuration / 60:00} : {remainingDuration % 60:00}";
+            uiText.text = $"{remainingDuration / 60:00}:{remainingDuration % 60:00}";
             uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
             remainingDuration--;
             yield return new WaitForSeconds(1f);
@@ -43,7 +45,8 @@ public class Timer : MonoBehaviour
     private void OnEnd()
     {
         //End Time, if want do something
-        Debug.Log("End");
-        gameHandler.GetComponent<GameHandler>().Defeat();
+        defeatWindow.GetComponent<WindowController>().Open();
+
+        gameHandler.GetComponent<ScenesHandler>().TogglePause();
     }
 }

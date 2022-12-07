@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using float_oat.Desktop90;
 
 //Fusion du code fournis dans la librairie de ZombiSoft avec le nôtre
 //Changement des noms de variables et des fonctions pour l'ajuster.
@@ -18,6 +19,7 @@ public class StatsSystem : MonoBehaviour
     }
 
 	[SerializeField] private GameObject gameHandler;
+	[SerializeField] private GameObject victoryWindow;
 	[SerializeField] private bool GodMode;
 
 	[SerializeField] private Image currentHeatBar;
@@ -224,7 +226,8 @@ public class StatsSystem : MonoBehaviour
 	private IEnumerator CCompleteProject()
 	{
 		// Won the game or whatever. Do stuff.. play anim, sound..
-		gameHandler.GetComponent<GameHandler>().Victory();
+		gameHandler.GetComponent<ScenesHandler>().TogglePause();
+		victoryWindow.GetComponent<WindowController>().Open();
 		yield return null;
 	}
 }
