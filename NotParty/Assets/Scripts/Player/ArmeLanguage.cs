@@ -23,6 +23,7 @@ public class ArmeLanguage : MonoBehaviour
     {
         if (collision.tag == "Travail" || collision.tag == "Distraction")
         {
+            collision.GetComponent<VulnerableArme>().Hit();
             collision.GetComponent<VulnerableArme>().degatAccumule += efficacite;
             Debug.Log(collision.GetComponent<VulnerableArme>().degatAccumule);
         }
