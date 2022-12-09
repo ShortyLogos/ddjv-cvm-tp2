@@ -6,24 +6,47 @@ using System.IO;
 
 public class ScenesHandler: MonoBehaviour
 {
-    [SerializeField] private GameObject fadeScreen;
-
+    private GameObject fadeScreen;
     private List<string> levelsList = new List<string>();
     private float previousTimeScale = 1;
-
-    private bool teachersWatching = false;
 
     private static bool isPaused;
     public bool IsPaused
     {
-        get => isPaused;
+        get
+        {
+            return isPaused;
+        }
+    }
+
+    public float GetIntroDuration()
+    {
+        return GetFadeScreen().GetComponent<FadeScreen>().GetFadeInDuration();
+    }
+
+    public float GetOutroDuration()
+    {
+        return GetFadeScreen().GetComponent<FadeScreen>().GetFadeOutDuration();
+    }
+
+    private GameObject GetFadeScreen()
+    {
+        if (fadeScreen == null)
+        {
+            fadeScreen = GameObject.FindWithTag("FadeScreen");
+        }
+        if (fadeScreen == null && Application.isEditor)
+        {
+            Debug.LogError("No objet with the tag FadeScreen have been found.");
+        }
+        return fadeScreen;
     }
 
     private void Start()
     {
         if (fadeScreen == null)
         {
-            fadeScreen = GameObject.FindWithTag("FadeScreen");
+            GetFadeScreen();
         }
         if (SceneManager.GetActiveScene().name == "BootScreen")
         {
@@ -32,6 +55,15 @@ public class ScenesHandler: MonoBehaviour
         {
             float delai = fadeScreen.GetComponent<FadeScreen>().GetTotalDuration();
             StartCoroutine(CQuitApp(delai));
+        }
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnSceneUnloaded(Scene current)
+    {
+        if (isPaused)
+        {
+            TogglePause();
         }
     }
 
@@ -73,7 +105,7 @@ public class ScenesHandler: MonoBehaviour
         string level = GetRandomLevel();
         if (level != "")
         {
-            PlayScene(level, pause: true, fadeOut: true);
+            PlayScene(level, fadeOut: true);
         }
     }
 
@@ -113,19 +145,7 @@ public class ScenesHandler: MonoBehaviour
 
     private float ActivateFadeOut()
     {
-        float delai = 0.0f;
-        if (fadeScreen == null)
-        {
-            fadeScreen = GameObject.FindWithTag("FadeScreen");
-        }
-        if(fadeScreen != null)
-        {
-            delai = fadeScreen.GetComponent<FadeScreen>().FadeOut();
-        } else if (Application.isEditor)
-        {
-            Debug.LogError("No objet with the tag FadeScreen have been found.");
-        }
-        return delai;
+        return GetFadeScreen().GetComponent<FadeScreen>().FadeOut();
     }
 
     private IEnumerator CPlayScene(string name, float delai, bool pause = false, bool fadeOut = false)
@@ -146,11 +166,10 @@ public class ScenesHandler: MonoBehaviour
 
     private IEnumerator CQuitApp(float delai = 0.0f)
     {
-        delai += ActivateFadeOut();
         yield return StartCoroutine(Utility.WaitForRealSeconds(delai));
-        if (Application.isEditor && !teachersWatching)
+        if (Application.isEditor)
         {
-            Debug.Log("Screw you guys, i'm going home! -Cartman");
+            Debug.Log("Screw you guys, i'm going home! -Eric Cartman");
         }
         Application.Quit();
     }
@@ -159,18 +178,19 @@ public class ScenesHandler: MonoBehaviour
     {
         // Source : https://www.youtube.com/watch?v=ROwsdftEGF0
         
-        if (Time.timeScale > 0)
+        if (!isPaused)
         {
             previousTimeScale = Time.timeScale;
             Time.timeScale = 0;
             AudioListener.pause = true;
-            isPaused = true;
         }
-        else if (Time.timeScale == 0)
+        else if (isPaused)
         {
             Time.timeScale = previousTimeScale;
             AudioListener.pause = false;
         }
+
+        isPaused = !isPaused;
     }
 
 

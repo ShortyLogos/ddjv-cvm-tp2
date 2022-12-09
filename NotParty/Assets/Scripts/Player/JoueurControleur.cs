@@ -39,6 +39,10 @@ public class JoueurControleur : MonoBehaviour
         //sceneManager = GameObject.FindWithTag("SceneManager");
 
         invincible = false;
+        if (invincible)
+        {
+            invincible = false;
+        }
         dashing = false;
         mouvement.z = 0.0f;
     }
