@@ -1,17 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
-using float_oat.Desktop90;
 using System;
 using System.Collections.Generic;
 
 public class HighScoreHandler : MonoBehaviour
 {
-    // Score entering window after a defeat
-    [SerializeField] private GameObject scoreUI;
-
     // Variables related to the high scores list
-    [SerializeField] private int maxCount = 10;
-    [SerializeField] private string filename = "highscore.json";
+    private int maxCount = 10;
+    private readonly string filename = "highscore.json";
     private List<HighScoreEntry> highScoreList = new List<HighScoreEntry>();
     public List<HighScoreEntry> HighScoreList {
         get {
@@ -25,23 +20,23 @@ public class HighScoreHandler : MonoBehaviour
 
     private void Start()
     {
-        highscore = PlayerPrefs.GetInt("score", 0);
+        LoadScore();
         LoadHighscores();
     }
 
-    // Called by the submit score button in the Score UI window
-    public void SaveScore()
+    public int LoadScore()
     {
-        // Get the player's name
-        InputField nameInput = scoreUI.GetComponentInChildren<InputField>();
-        string playerName = nameInput.text;
+        highscore = PlayerPrefs.GetInt("score", 0);
+        return highscore;
+    }
 
+
+    // Called by the submit score button in the Score UI window
+    public void SaveHighScore(string playerName)
+    {
         HighScoreEntry entry = new HighScoreEntry(playerName, highscore);
-        
         // Check if the entry make it in the top high scores
         AddEntryIfPossible(entry);
-        
-        scoreUI.GetComponent<WindowController>().Close();
     }
 
     // Make sure the list stays under the maxcount and add only if the score
@@ -74,17 +69,16 @@ public class HighScoreHandler : MonoBehaviour
     }
 
     // Increment the actual high score
-    public void Victory()
+    public void IncreaseScore()
     {
         highscore++;
         PlayerPrefs.SetInt("score", highscore);
     }
 
     // Prompt the user to enter its name and save his score
-    public void Defeat()
+    public void RestartScore()
     {
         PlayerPrefs.SetInt("score", 0);
-        scoreUI.GetComponent<WindowController>().Open();
     } 
 }
 

@@ -4,12 +4,12 @@
 
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
+using TMPro;
 
 public class PopupText : MonoBehaviour
 {
 	public static PopupText Instance;
-	private Text popupText;
+	private TextMeshProUGUI popupText;
 	private Coroutine PopupTextCoroutine;
 	private bool CoroutineRun;
 
@@ -19,7 +19,7 @@ public class PopupText : MonoBehaviour
 	void Awake()
 	{
 		Instance = this;
-		popupText = GetComponent<Text>();
+		popupText = GetComponent<TextMeshProUGUI>();
 	}
 
 	//==============================================================

@@ -77,7 +77,7 @@ namespace float_oat.Desktop90
             {
                 CanvasGroup.alpha = 1f - (elapsedTime / FadeOutTime);
                 yield return null;
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.fixedDeltaTime;
             }
             CanvasGroup.alpha = 1f;
             gameObject.SetActive(false);
@@ -109,7 +109,7 @@ namespace float_oat.Desktop90
             {
                 CanvasGroup.alpha = elapsedTime / FadeInTime;
                 yield return null;
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.fixedDeltaTime;
             }
             CanvasGroup.alpha = 1f;
         }

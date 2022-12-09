@@ -16,23 +16,25 @@ public class FadeScreen: MonoBehaviour
     [SerializeField] [Min(0)] [Tooltip("The amount of seconds between each incrementation of the alpha value of the fade screen.")]
     private float vitesseFadeIn;
 
+    [SerializeField] [Range(0.001f, 1.0f)] [Tooltip("Value by which the alpha is incremented at each update.")]
+    private float incrementation = 0.01f;
+
+
     [SerializeField] [Tooltip("Do you want the scene to have a fade out effect?")]
     private bool fadeOut;
     
     [SerializeField] [Min(0)] [Tooltip("The amount of seconds between each decrementation of the alpha value of the fade screen.")]
     private float vitesseFadeOut;
+    
+    [SerializeField] [Range(0.001f, 1.0f)] [Tooltip("Value by which the alpha is decremented at each update.")]
+    private float decrementation = 0.01f;
+
 
     [SerializeField] [Tooltip("Do you want the scene to fade out automatically after a given amount of seconds?")]
     private bool autoFadeOut;
     
     [SerializeField] [Min(0)] [Tooltip("Amount of seconds to wait before starting the fade out.")]
     private float delai = 0.0f;
-
-    [SerializeField] [Range(0.001f, 1.0f)] [Tooltip("Value by which the alpha is incremented at each update.")]
-    private float incrementation = 0.01f;
-    
-    [SerializeField] [Range(0.001f, 1.0f)] [Tooltip("Value by which the alpha is decremented at each update.")]
-    private float decrementation = 0.01f;
 
     private Image rendu;
     private Canvas canvas;
@@ -70,16 +72,14 @@ public class FadeScreen: MonoBehaviour
     public float FadeIn()
     {
         StartCoroutine(CFadeIn());
-        float durationIn = 1 / decrementation * vitesseFadeIn;
-        return durationIn;
+        return GetFadeInDuration();
     }
 
     //Fonction publique pour forcer un fade out. Si skipDelai est à true, le fadeOut est immédiat.  Retourne le temps que l'animation prendra.
     public float FadeOut(bool skipDelai = true)
     {
         StartCoroutine(CFadeOut(skipDelai));
-        float durationOut = 1 / incrementation * vitesseFadeOut;
-        return durationOut;
+        return GetFadeOutDuration();
     }
 
     public float GetTotalDuration()
@@ -98,6 +98,16 @@ public class FadeScreen: MonoBehaviour
             duration += delai;
         }
         return duration;
+    }
+
+    public float GetFadeInDuration()
+    {
+        return 1+(1 / decrementation * vitesseFadeIn);
+    }
+
+    public float GetFadeOutDuration()
+    {
+        return 1 / incrementation * vitesseFadeOut;
     }
 
     private IEnumerator CFadeIn()
@@ -141,7 +151,6 @@ public class FadeScreen: MonoBehaviour
         }
     }
 
-    #region Custom Editor
 #if UNITY_EDITOR
     // https://www.youtube.com/watch?v=RImM7XYdeAc
     // https://docs.unity3d.com/Manual/editor-CustomEditors.html
@@ -210,6 +219,5 @@ public class FadeScreen: MonoBehaviour
     }
 
 #endif
-    #endregion //Editor
 
 }
