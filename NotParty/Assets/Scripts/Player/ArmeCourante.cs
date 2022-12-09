@@ -22,14 +22,14 @@ public class ArmeCourante : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && arme != null)
-        {
-            arme.GetComponent<ParticleSystem>().Play();
-        }
-
         if (Input.GetMouseButtonUp(0) && arme != null)
         {
             arme.GetComponent<ParticleSystem>().Stop();
+        }
+
+        if (Input.GetMouseButtonDown(0) && arme != null)
+        {
+            arme.GetComponent<ParticleSystem>().Play();
         }
 
         bool cycleGauche = Input.GetKeyDown(KeyCode.Q);
