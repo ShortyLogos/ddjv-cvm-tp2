@@ -15,7 +15,6 @@ public class GameHandler : MonoBehaviour
 
     // TODO: Arrange cooldown for dash or multiple weapons or only flamer
     // TODO: Decide if we want default weapon or not
-	// TODO: Check why there's a weird flashing animation on shutdown screen
 
     private HighScoreHandler highscoreHandler;
     private ScenesHandler sceneHandler;
@@ -260,7 +259,7 @@ public class GameHandler : MonoBehaviour
 	IEnumerator Overheat()
 	{
 		// Weapon or skill is unusable until it cool down. Do stuff.. play anim, sound..
-		PopupText.Instance.Popup("Weapon overheating!", 1f, 1f);
+		PopupText.Instance.Popup("Dash on Cooldown!", 1f, 1f);
 		yield return null;
 	}
 
