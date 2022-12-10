@@ -7,7 +7,7 @@ public class WeaponType : MonoBehaviour
     public string weaponName;
 
     [SerializeField]
-    private int efficiency;
+    private float efficiency;
 
     [SerializeField]
     private float cooldown;
@@ -23,9 +23,9 @@ public class WeaponType : MonoBehaviour
     {
         if (collision.tag == "Work" || collision.tag == "Distraction")
         {
-            collision.GetComponent<VulnerableArme>().Hit();
-            collision.GetComponent<VulnerableArme>().degatAccumule += efficiency;
-            Debug.Log(collision.GetComponent<VulnerableArme>().degatAccumule);
+            collision.GetComponent<WeaponVulnerable>().Hit();
+            collision.GetComponent<WeaponVulnerable>().damaged += efficiency * GetComponentInParent<PlayerController>().GetEfficiencyMultiplier();
+            Debug.Log(collision.GetComponent<WeaponVulnerable>().damaged);
         }
     }
 }

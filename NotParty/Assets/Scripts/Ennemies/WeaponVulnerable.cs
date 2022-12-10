@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VulnerableArme : MonoBehaviour
+public class WeaponVulnerable : MonoBehaviour
 {
     [SerializeField]
-    private string nom;
+    private string entityName;
 
-    public int degatAccumule; // ce à quoi l'on va comparer la progression
-    public int vieMax; // ce à quoi l'on va comparer la progression
+    public float damaged; // ce à quoi l'on va comparer la progression
+    public float maxHealth; // ce à quoi l'on va comparer la progression
     private SpriteRenderer sprite;
     private Color originalColor;
 
@@ -22,7 +22,7 @@ public class VulnerableArme : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (degatAccumule >= vieMax)
+        if (damaged >= maxHealth)
         {
             Debug.Log("Niveau complété.");
         }
