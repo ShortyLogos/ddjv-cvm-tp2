@@ -8,80 +8,73 @@ public class Ennemy : MonoBehaviour
     private Rigidbody2D rig;
 
     [SerializeField]
-    private float vitesseChasse = 1.0f, vitessePatrouille = 0.5f;
-    private Vector3 mouvementDirection;
+    private float chaseSpeed = 1.0f, patrolSpeed = 0.5f;
+    [SerializeField]
+    private Vector3 movementDirection;
     private Vector3 visionDirection;
 
     [SerializeField]
-    private GameObject cible;
+    private string targetName;
+    private GameObject target;
     [SerializeField]
-    private LayerMask masqueRayon;
+    private LayerMask maskLayers;
 
     [SerializeField]
-    private float distanceVue = 10.0f;
+    private float viewDistance = 10.0f;
 
-    private enum TArbre
+    private enum StateTree
     {
-        eInactif = 1,
-        ePatrouille = 2,
-        eChasse = 4
+        eInactive = 1,
+        ePatrol = 2,
+        eChase = 4
     };
-    private TArbre etat;
+    private StateTree state;
 
-    // Permet de déterminé s'il est actuellement en mouvement
-    private bool EstMobile()
+    // Determine of its actually moving
+    private bool IsMobile()
     {
-        return (etat & (TArbre.ePatrouille | TArbre.eChasse)) != 0;
+        return (state & (StateTree.ePatrol | StateTree.eChase)) != 0;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        mouvementDirection.z = 0.0f;
+        movementDirection.z = 0.0f;
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        if (cible == null)
-        {
-            cible = GameObject.FindWithTag("Player");
-        }
+        target = GameObject.Find(targetName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        visionDirection = (cible.transform.position - transform.position).normalized;
-        RaycastHit2D frappe = Physics2D.Raycast(transform.position, visionDirection, distanceVue, masqueRayon);
+        visionDirection = (target.transform.position - transform.position).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, visionDirection, viewDistance, maskLayers);
 
-        float distance_destination = distanceVue;
-        TArbre vielEtat = etat;
-        etat = TArbre.ePatrouille;
+        float distance_destination = viewDistance;
+        StateTree oldState = state;
+        state = StateTree.ePatrol;
 
-        if (frappe.collider != null)
+        if (hit.collider != null)
         {
-            distance_destination = frappe.distance;
-            if (frappe.collider.gameObject.layer == cible.layer)
+            distance_destination = hit.distance;
+            if (hit.collider.gameObject.layer == target.layer)
             {
-                etat = TArbre.eChasse;
-                mouvementDirection = visionDirection;
+                state = StateTree.eChase;
+                movementDirection = visionDirection;
             }
         }
 
-        Vector3 depart = transform.position;
         Vector3 delta = visionDirection * distance_destination;
-        Vector3 destination = depart + delta;
-        Vector3 perpendiculaire = new Vector3(visionDirection.y, -visionDirection.x, visionDirection.z);
-        Debug.DrawRay(transform.position, delta);
-        const float largeurT = 0.5f;
-        Debug.DrawRay(destination, perpendiculaire * largeurT);
-        Debug.DrawRay(destination, -perpendiculaire * largeurT);
+        Debug.DrawRay(transform.position, delta, Color.cyan);
 
-        if (vielEtat != etat)
+        if (oldState != state)
         {
-            if (etat == TArbre.ePatrouille)
+            if (state == StateTree.ePatrol)
             {
                 StartCoroutine(CPatrouille());
             }
-            else if (etat == TArbre.eChasse)
+            else if (state == StateTree.eChase)
             {
                 StopCoroutine(CPatrouille());
             }
@@ -90,22 +83,22 @@ public class Ennemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (EstMobile())
+        if (IsMobile())
         {
-            anim.SetFloat("moveX", mouvementDirection.x);
-            anim.SetFloat("moveY", mouvementDirection.y);
-            anim.SetFloat("Speed", mouvementDirection.sqrMagnitude);
-            float vitesse = etat == TArbre.eChasse ? vitesseChasse : vitessePatrouille;
-            RaycastHit2D frappe = Physics2D.Raycast(transform.position, mouvementDirection, distanceVue / 5, masqueRayon);
-            if (frappe.collider != null && frappe.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
+            anim.SetFloat("moveX", movementDirection.x);
+            anim.SetFloat("moveY", movementDirection.y);
+            anim.SetFloat("Speed", movementDirection.sqrMagnitude);
+            float speed = state == StateTree.eChase ? chaseSpeed : patrolSpeed;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, movementDirection, viewDistance / 5, maskLayers);
+            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Environment"))
             {
-                mouvementDirection = Vector3.zero;
+                movementDirection = Vector3.zero;
             }
-            rig.velocity = mouvementDirection * vitesse;
-            if (mouvementDirection.sqrMagnitude > 0)
+            rig.velocity = movementDirection * speed;
+            if (movementDirection.sqrMagnitude > 0)
             {
-                anim.SetFloat("lastMoveX", mouvementDirection.x);
-                anim.SetFloat("lastMoveY", mouvementDirection.y);
+                anim.SetFloat("lastMoveX", movementDirection.x);
+                anim.SetFloat("lastMoveY", movementDirection.y);
             }
         }
         else
@@ -121,18 +114,18 @@ public class Ennemy : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             bool valid = false;
-            int tentatives = 0;
+            int attempts = 0;
             do
             {
-                mouvementDirection = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
-                mouvementDirection.Normalize();
-                RaycastHit2D frappe = Physics2D.Raycast(transform.position, mouvementDirection, distanceVue / 2, masqueRayon);
+                movementDirection = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
+                movementDirection.Normalize();
+                RaycastHit2D frappe = Physics2D.Raycast(transform.position, movementDirection, viewDistance / 2, maskLayers);
                 if (frappe.collider != null)
                 {
-                    tentatives++;
-                    if (tentatives > 1000)
+                    attempts++;
+                    if (attempts > 30)
                     {
-                        mouvementDirection = Vector3.zero;
+                        movementDirection = Vector3.zero;
                         valid = true;
                     }
                 }
@@ -142,7 +135,7 @@ public class Ennemy : MonoBehaviour
                 }
             } while (!valid);
             yield return new WaitForSeconds(Random.Range(1.5f, 3.0f));
-            mouvementDirection = Vector3.zero;
+            movementDirection = Vector3.zero;
             yield return new WaitForSeconds(Random.Range(2.0f, 4.0f));
         }
     }
