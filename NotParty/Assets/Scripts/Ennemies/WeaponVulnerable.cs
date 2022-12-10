@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class WeaponVulnerable : MonoBehaviour
 {
-    [SerializeField]
-    private string entityName;
-
-    public float damaged; // ce à quoi l'on va comparer la progression
-    public float maxHealth; // ce à quoi l'on va comparer la progression
+    private Animator anim;
     private SpriteRenderer sprite;
     private Color originalColor;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private string nom;
+
+    [SerializeField]
+    private bool isWork;
+    private bool dead;
+
+    public float damaged; // ce à quoi l'on va comparer la progression
+    public float maxHealth; // ce à quoi l'on va comparer la progression
+
+    // Start is called before the first frame updatawe
     void Start()
     {
         sprite = this.GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         originalColor = sprite.color;
     }
 
@@ -24,7 +31,11 @@ public class WeaponVulnerable : MonoBehaviour
     {
         if (damaged >= maxHealth)
         {
-            Debug.Log("Niveau complété.");
+            if (isWork && !GetComponent<WorkController>().IsDead())
+            {
+                Debug.Log("je passe ici");
+                StartCoroutine(GetComponent<WorkController>().CVainquished());
+            }
         }
     }
 

@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8895300155660853881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.76, y: 0.17, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8895300155948208987}
@@ -177,6 +177,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 328
   player: {fileID: 0}
+  dead: 0
 --- !u!114 &8895300155660853824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,9 +190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c356182593c95345bc946862327a20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: 
+  nom: Pepe Montinus
+  isWork: 1
   damaged: 0
-  maxHealth: 2000
+  maxHealth: 100
 --- !u!1 &8895300155948208988
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +314,7 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 578
+      atime0: 0
       atime1: 65535
       atime2: 0
       atime3: 0

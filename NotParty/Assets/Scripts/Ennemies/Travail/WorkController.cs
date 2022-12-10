@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TravailControleur : MonoBehaviour
+public class WorkController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rig;
@@ -31,9 +31,12 @@ public class TravailControleur : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    public bool dead;
+
     // Start is called before the first frame update
     void Start()
     {
+        dead = false;
         direction.z = 0.0f;
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -42,19 +45,30 @@ public class TravailControleur : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lookingToward = (player.transform.position - transform.position).normalized;
-        anim.SetFloat("moveX", lookingToward.x);
-
-        if (!isMoving)
+        if (!dead)
         {
-            StartCoroutine(CMove());
+            lookingToward = (player.transform.position - transform.position).normalized;
+            anim.SetFloat("moveX", lookingToward.x);
+
+            if (!isMoving)
+            {
+                StartCoroutine(CMove());
+            }
         }
     }
 
     private void FixedUpdate()
     {
         speed = Random.Range(minSpeed, maxSpeed);
-        rig.AddForce(direction.normalized * speed, ForceMode2D.Force);
+        if (!dead)
+        {
+            rig.AddForce(direction.normalized * speed, ForceMode2D.Force);
+        }
+    }
+
+    public bool IsDead()
+    {
+        return dead;
     }
 
     IEnumerator CMove()
@@ -89,5 +103,29 @@ public class TravailControleur : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.25f, 2.0f));
 
         isMoving = false;
+    }
+
+    public IEnumerator CVainquished()
+    {
+        StopCoroutine(CMove());
+        dead = true;
+        anim.SetBool("dead", true);
+        direction = Vector3.zero;
+        
+        yield return new WaitForSeconds(2.0f);
+        Destroy(this.gameObject);
+
+        Debug.Log("Niveau complété.");
+    }
+
+    public IEnumerator CRRRVainquished()
+    {
+        dead = true;
+        anim.SetBool("dead", true);
+        direction = Vector3.zero;
+
+        yield return new WaitForSeconds(3.4f);
+        Destroy(this.gameObject);
+        Debug.Log("Niveau complété.");
     }
 }
