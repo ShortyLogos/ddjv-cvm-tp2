@@ -96,6 +96,7 @@ public class WorkController : MonoBehaviour
             {
                 valid = true;
             }
+
         } while (!valid);
 
         yield return new WaitForSeconds(Random.Range(0.25f, 2.0f));
@@ -115,17 +116,6 @@ public class WorkController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         Destroy(this.gameObject);
 
-        Debug.Log("Niveau complété.");
-    }
-
-    public IEnumerator CRRRVainquished()
-    {
-        dead = true;
-        anim.SetBool("dead", true);
-        direction = Vector3.zero;
-
-        yield return new WaitForSeconds(3.4f);
-        Destroy(this.gameObject);
         Debug.Log("Niveau complété.");
     }
 }
