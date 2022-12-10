@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 mouvement = new Vector3(0.0f, 0.0f, 0.0f);
 
     [SerializeField]
-    private float dashSpeed = 8.0f;
+    private float dashSpeedMultiplier = 4.0f;
 
     [SerializeField]
     private float dashDuration = 0.5f;
@@ -27,7 +27,10 @@ public class PlayerController : MonoBehaviour
     private float dashCooldown = 1.35f;
 
     [SerializeField]
-    private float speed;
+    private float speed = 3.5f;
+
+    private float speedMultiplier { get; set; }
+    private float efficiencyMultiplier { get; set; }
 
     void Start()
     {
@@ -38,6 +41,8 @@ public class PlayerController : MonoBehaviour
         //sceneManager = GameObject.FindWithTag("SceneManager");
 
         dashing = false;
+        speedMultiplier = 1.0f;
+        efficiencyMultiplier = 1.0f;
         mouvement.z = 0.0f;
     }
 
@@ -81,13 +86,45 @@ public class PlayerController : MonoBehaviour
         {
             if (!dashing)
             {
-                rig.velocity = mouvement.normalized * speed;
+                rig.velocity = mouvement.normalized * speed * speedMultiplier;
             }
             else
             {
-                rig.AddForce(mouvement.normalized * dashSpeed, ForceMode2D.Force);
+                rig.AddForce(mouvement.normalized * speed * dashSpeedMultiplier * speedMultiplier, ForceMode2D.Force);
             }
         }
+    }
+
+    // Methods about speed multiplier
+    public void AddSpeed(float value)
+    {
+        speedMultiplier += value;
+    }
+
+    public void RemoveSpeed(float value)
+    {
+        speedMultiplier -= value;
+    }
+
+    public float GetSpeedMultiplier()
+    {
+        return speedMultiplier;
+    }
+
+    // Methods about efficiency multiplier
+    public void AddEfficiency(float value)
+    {
+        efficiencyMultiplier += value;
+    }
+
+    public void RemoveEfficiency(float value)
+    {
+        efficiencyMultiplier -= value;
+    }
+
+    public float GetEfficiencyMultiplier()
+    {
+        return efficiencyMultiplier;
     }
 
     IEnumerator CDash()

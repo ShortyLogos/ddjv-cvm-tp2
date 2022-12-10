@@ -4,7 +4,7 @@ using UnityEngine;
 
 // ref : https://www.youtube.com/watch?v=7c68z05vaX4
 
-public class RegardeSouris : MonoBehaviour
+public class LookTowardMouse : MonoBehaviour
 {
     public float vitesse = 5.0f;
     public float offsetRotation = 0;
