@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float dashDuration = 0.5f;
 
-    [SerializeField]
-    private float dashCooldown = 1.35f;
+    // Durée de cooldown pour le UI
+    public float dashCooldown = 1.35f;
 
     [SerializeField]
     private float speed = 3.5f;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         dashTrail = GetComponent<TrailRenderer>();
-        //sceneManager = GameObject.FindWithTag("SceneManager");
+        //gameHandler = GameObject.FindWithTag("GameHandler");
 
         dashing = false;
         speedMultiplier = 1.0f;

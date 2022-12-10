@@ -18,7 +18,7 @@ public class WeaponVulnerable : MonoBehaviour
     public float damaged; // ce à quoi l'on va comparer la progression
     public float maxHealth; // ce à quoi l'on va comparer la progression
 
-    // Start is called before the first frame updatawe
+    // Start is called before the first frame update
     void Start()
     {
         sprite = this.GetComponent<SpriteRenderer>();
@@ -33,7 +33,6 @@ public class WeaponVulnerable : MonoBehaviour
         {
             if (isWork && !GetComponent<WorkController>().IsDead())
             {
-                Debug.Log("je passe ici");
                 StartCoroutine(GetComponent<WorkController>().CVainquished());
             }
         }
