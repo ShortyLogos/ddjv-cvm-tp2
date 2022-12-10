@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmeLanguage : MonoBehaviour
+public class WeaponType : MonoBehaviour
 {
-    public string nom;
+    public string weaponName;
 
     [SerializeField]
-    private int efficacite;
+    private int efficiency;
 
     [SerializeField]
     private float cooldown;
@@ -21,10 +21,10 @@ public class ArmeLanguage : MonoBehaviour
 
     void OnParticleCollision(GameObject collision)
     {
-        if (collision.tag == "Travail" || collision.tag == "Distraction")
+        if (collision.tag == "Work" || collision.tag == "Distraction")
         {
             collision.GetComponent<VulnerableArme>().Hit();
-            collision.GetComponent<VulnerableArme>().degatAccumule += efficacite;
+            collision.GetComponent<VulnerableArme>().degatAccumule += efficiency;
             Debug.Log(collision.GetComponent<VulnerableArme>().degatAccumule);
         }
     }

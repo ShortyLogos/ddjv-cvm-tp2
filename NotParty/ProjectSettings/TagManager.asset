@@ -8,20 +8,20 @@ TagManager:
   - Cplusplus
   - Javascript
   - Distraction
-  - Travail
   - Environment
+  - Work
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Joueur
+  - Player
   - Water
   - UI
   - Distractions
-  - Travail
+  - Work
   - Environment
   - Language
-  - 
+  - Untouchable
   - 
   - 
   - 

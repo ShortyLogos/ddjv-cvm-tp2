@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86814d7f6a2bba4bad0c3faa3f6a9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nom: python
-  efficacite: 1
+  weaponName: python
+  efficiency: 5
   cooldown: 0
 --- !u!198 &3460214706275810193
 ParticleSystem:
@@ -238,7 +238,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 11
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
