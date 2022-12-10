@@ -13,10 +13,6 @@ using System;
 public class GameHandler : MonoBehaviour
 {
 
-    // TODO: Arrange cooldown for dash or multiple weapons or only flamer
-    // TODO: Decide if we want default weapon or not
-	// TODO: Check why there's a weird flashing animation on shutdown screen
-
     private HighScoreHandler highscoreHandler;
     private ScenesHandler sceneHandler;
 
@@ -195,33 +191,37 @@ public class GameHandler : MonoBehaviour
 
 
 	//==============================================================
-	// Heat Logic
+	// Cooldown Logic
 	//==============================================================
 
 	[Space(10)]
-	[Header("Heat")]
+	[Header("Cooldown")]
 	
 	[SerializeField][Tooltip("Image object representing the bar's interior.")]
-	private Image currentHeatBar;
+	private Image currentCooldownBar;
 	
-	[SerializeField][Tooltip("Actual heat of the current level. Change if you want a starting heat. Default: 0")][Min(0.0f)]
-	private float heatLevel = 0f;
+	[SerializeField][Tooltip("Starting cooldown of the current level. Default: 0")][Min(0.0f)]
+	private float cooldownLevel = 0f;
 	
-	[SerializeField][Tooltip("Max heat of the bar. When the heat level gets there, the overheating function is called. Default: 100")][Min(0.01f)]
-	private float maxHeat = 100f;
+	[SerializeField][Tooltip("Max cooldown of the bar. When the cooldown level gets there, the DisplayCooldown function is called. Default: 100")][Min(0.01f)]
+	private float maxCooldown = 100f;
 	
-	[SerializeField][Tooltip("If there's a natural regeneration for the heat system.")]
+	[SerializeField][Tooltip("If there's a natural regeneration for the cooldown system.")]
 	private bool Regenerate = true;
 	
-	[SerializeField][Tooltip("The amount by which the actual heat is decremented each second.")][Min(0.0f)]
+	[SerializeField][Tooltip("The amount by which the actual cooldown is decremented each second.")][Min(0.0f)]
 	private float regenerationAmount = 15f;
 
-	// Every second, it regenerates a number of heat points depending on the regen stat
+	[SerializeField]
+	[Tooltip("The message displayed whenever the cooldown bar start")]
+	private string messageCooldown = "Ability on Cooldown!";
+
+	// Every second, it regenerates a number of cooldown points depending on the regen stat
 	private void Regen()
 	{
 		if (godMode)
 		{
-			CoolDown(maxHeat);
+			CoolDown(maxCooldown);
 		}
 		else
 		{
@@ -229,15 +229,15 @@ public class GameHandler : MonoBehaviour
 		}
 	}
 
-	// Increase the current Heat Bar and calls the heating coroutine in case we would like to add animations
-	public void HeatUp(float heat)
+	// Increase the current Cooldown Bar
+	public void OnCooldown(float amount)
 	{
 		if (!gameOver && !IsPaused)
 		{
-			heatLevel += heat;
-			if (heatLevel >= maxHeat) {
-				heatLevel = maxHeat;
-				StartCoroutine(Overheat());
+			cooldownLevel += amount;
+			if (cooldownLevel >= maxCooldown) {
+				cooldownLevel = maxCooldown;
+				StartCoroutine(DisplayCooldown());
 			}
 			UpdateGraphics();
 		}
@@ -248,27 +248,27 @@ public class GameHandler : MonoBehaviour
 	{
 		if (!gameOver && !IsPaused)
 		{
-			heatLevel -= amount;
-			if (heatLevel < 0)
-				heatLevel = 0;
+			cooldownLevel -= amount;
+			if (cooldownLevel < 0)
+				cooldownLevel = 0;
 
 			UpdateGraphics();
 		}
 	}
 
-	// Called when the heat level gets to 100%
-	IEnumerator Overheat()
+	// Called when the cooldown level gets to 100%
+	IEnumerator DisplayCooldown()
 	{
 		// Weapon or skill is unusable until it cool down. Do stuff.. play anim, sound..
-		PopupText.Instance.Popup("Weapon overheating!", 1f, 1f);
+		PopupText.Instance.Popup(messageCooldown, 1f, 1f);
 		yield return null;
 	}
 
 	// Update the cooldown bar in the Game HUD
 	private void UpdateHeatBar()
 	{
-		float ratio = heatLevel / maxHeat;
-		currentHeatBar.rectTransform.localPosition = new Vector3(currentHeatBar.rectTransform.rect.width * ratio - currentHeatBar.rectTransform.rect.width, 0, 0);
+		float ratio = cooldownLevel / maxCooldown;
+		currentCooldownBar.GetComponent<Image>().fillAmount = ratio;
 	}
 
 	//==============================================================
