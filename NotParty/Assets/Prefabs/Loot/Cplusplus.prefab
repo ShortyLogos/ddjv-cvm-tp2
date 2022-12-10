@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86814d7f6a2bba4bad0c3faa3f6a9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nom: cplusplus
-  efficacite: 12
+  weaponName: cplusplus
+  efficiency: 12
   cooldown: 0
 --- !u!198 &6230252211618160000
 ParticleSystem:
@@ -1042,7 +1042,7 @@ ParticleSystem:
     m_BurstCount: 1
     m_Bursts:
     - serializedVersion: 2
-      time: 0.15
+      time: 0
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -1096,8 +1096,8 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 1
-      repeatInterval: 0.8
+      cycleCount: 2
+      repeatInterval: 0.25
       probability: 1
   SizeModule:
     enabled: 1
