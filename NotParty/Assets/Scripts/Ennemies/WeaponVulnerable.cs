@@ -4,26 +4,43 @@ using UnityEngine;
 
 public class WeaponVulnerable : MonoBehaviour
 {
-    private Animator anim;
     private SpriteRenderer sprite;
-    private Color originalColor;
 
     [SerializeField]
     private string nom;
 
     [SerializeField]
     private bool isWork;
-    private bool dead;
 
-    public float damaged; // ce à quoi l'on va comparer la progression
-    public float maxHealth; // ce à quoi l'on va comparer la progression
+    [SerializeField]
+    private float damaged;
+    [SerializeField]
+    private float maxHealth;
+
+    private GameHandler gameHandler;
+    private WorkController controller;
+
+    [SerializeField]
+    private float nbrThreshold = 4.0f;
+    private int indexThreshold = 1;
+    private float threshold = 0.0f;
+    private bool immune = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        sprite = this.GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        originalColor = sprite.color;
+        GameObject handler = GameObject.FindGameObjectWithTag("GameHandler");
+        if (handler != null && isWork)
+        {
+            gameHandler = handler.GetComponent<GameHandler>();
+            gameHandler.SetMaxProgress(maxHealth);
+            threshold = maxHealth / nbrThreshold;
+        }
+        sprite = GetComponent<SpriteRenderer>();
+        if (isWork)
+        {
+            controller = GetComponent<WorkController>();
+        }
     }
 
     // Update is called once per frame
@@ -31,22 +48,60 @@ public class WeaponVulnerable : MonoBehaviour
     {
         if (damaged >= maxHealth)
         {
-            if (isWork && !GetComponent<WorkController>().IsDead())
+            if (isWork)
             {
-                StartCoroutine(GetComponent<WorkController>().CVainquished());
+                StartCoroutine(controller.CVainquished());
+            } else
+            {
+                GetComponent<Ennemy>().Defeat();
             }
         }
     }
 
-    public void Hit()
+    public void Heal(float amount)
     {
-        sprite.color = Color.white;
-        StartCoroutine(COriginalColor());
+        damaged = Mathf.Clamp(damaged -= amount, 0.0f, maxHealth);
+        if (gameHandler != null)
+        {
+            gameHandler.SetBackProgress(amount);
+        }
     }
 
-    IEnumerator COriginalColor()
+    public void Hit(float amount)
     {
+        if (!immune)
+        {
+            damaged = Mathf.Clamp(damaged += amount, 0.0f, maxHealth);
+            if (isWork)
+            {
+                int test = ((int)(damaged / (threshold * indexThreshold)));
+                if (indexThreshold < nbrThreshold && test>=1)
+                {
+                    //Debug.LogWarning($"Threshold #{indexThreshold} at {damaged}/{maxHealth} with {nbrThreshold} threshold. The test gave {test}.");
+                    indexThreshold++;
+                    immune = true;
+                    float immunityDuration = controller.ActivateAbility();
+                    StartCoroutine(CInvincible(immunityDuration));
+                }
+                if (gameHandler != null)
+                {
+                    gameHandler.Progress(amount);
+                }
+            }
+            StartCoroutine(CFlashColor());
+        }
+    }
+
+    private IEnumerator CInvincible(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        immune = false;
+    }
+
+    IEnumerator CFlashColor()
+    {
+        sprite.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        sprite.color = originalColor;
+        sprite.color = Color.white;
     }
 }

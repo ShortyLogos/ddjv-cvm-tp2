@@ -21,11 +21,10 @@ public class WeaponType : MonoBehaviour
 
     void OnParticleCollision(GameObject collision)
     {
-        if (collision.tag == "Work" || collision.tag == "Distraction")
+        if (collision.CompareTag("Work") || collision.CompareTag("Distraction"))
         {
-            collision.GetComponent<WeaponVulnerable>().Hit();
-            collision.GetComponent<WeaponVulnerable>().damaged += efficiency * GetComponentInParent<PlayerController>().GetEfficiencyMultiplier();
-            Debug.Log(collision.GetComponent<WeaponVulnerable>().damaged);
+            float damage = efficiency * GetComponentInParent<PlayerController>().GetEfficiencyMultiplier();
+            collision.GetComponent<WeaponVulnerable>().Hit(damage);
         }
     }
 }

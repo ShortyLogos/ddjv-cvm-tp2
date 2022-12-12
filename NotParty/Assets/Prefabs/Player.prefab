@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 4057005781671238351}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,6 +481,8 @@ MonoBehaviour:
   dashDuration: 0.5
   dashCooldown: 1.35
   speed: 2
+  audioSource: {fileID: 0}
+  pickUpSound: {fileID: 8300000, guid: 33cdf34d9aea11741aac9c356bc1cff9, type: 3}
 --- !u!114 &4057005781671238344
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7035410201379665073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7035410201379665087}
+  - component: {fileID: 7035410201379665086}
+  m_Layer: 0
+  m_Name: ItemsSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7035410201379665087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035410201379665073}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7035410201379665086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035410201379665073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eaf471372c2c68448e115cf2764d96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minX: -10
+  maxX: 10
+  minY: 10
+  maxY: -10
+  parent: {fileID: 0}
+  glowingEffect: {fileID: 1652143759095011289, guid: e2c1ac940434a5242b54d72b66654687, type: 3}
+  itemsList:
+  - rarity: 0.15
+    prefab: {fileID: 7662040780987000360, guid: 797a7c68a38bcc143a364c1588fb1193, type: 3}
+  - rarity: 0.35
+    prefab: {fileID: 7662040780987000360, guid: b66d6bb90c7ee274bb5625f0e7f8c415, type: 3}
+  - rarity: 0.35
+    prefab: {fileID: 7662040780987000360, guid: 96dda71db32f6594885e68fc1fe18de2, type: 3}
+  - rarity: 0.15
+    prefab: {fileID: 7662040780987000360, guid: ff05217a6e4f89f4eb028ad188cc6638, type: 3}
+  ItemSpawnCooldown: 10
+  lifeSpan: 10
+  weaponsList:
+  - rarity: 0.01
+    prefab: {fileID: 2893496133016927136, guid: fd798f036f4217d41be37547520ea356, type: 3}
+  - rarity: 0.33
+    prefab: {fileID: 4084532362423315860, guid: 24dc082812f83194c8bbb040801faadb, type: 3}
+  - rarity: 0.33
+    prefab: {fileID: 3787759427005294801, guid: a18734efccd75754694213b8e041d55b, type: 3}
+  - rarity: 0.33
+    prefab: {fileID: 5478847058766835208, guid: 056aa7fdb17c0624fab2fb9a7fa6d425, type: 3}
+  weaponsSpawnCooldown: 20

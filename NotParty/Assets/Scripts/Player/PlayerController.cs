@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rig;
-    private SpriteRenderer sprite;
     private Animator anim;
     private TrailRenderer dashTrail;
 
@@ -24,22 +23,30 @@ public class PlayerController : MonoBehaviour
     private float dashDuration = 0.5f;
 
     // Durée de cooldown pour le UI
-    public float dashCooldown = 1.35f;
+    [SerializeField]
+    private float dashCooldown = 1.35f;
 
     [SerializeField]
     private float speed = 3.5f;
 
+    [SerializeField]
+    private AudioSource audioSource;
+    public AudioClip pickUpSound;
+
     private float speedMultiplier { get; set; }
     private float efficiencyMultiplier { get; set; }
+
+    private GameHandler gameHandler;
 
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
         dashTrail = GetComponent<TrailRenderer>();
-        //gameHandler = GameObject.FindWithTag("GameHandler");
-
+        GameObject handler = GameObject.FindWithTag("GameHandler");
+        if (handler != null) gameHandler = handler.GetComponent<GameHandler>();
+        GameObject soundSource = GameObject.Find("GameHandling/UI/AudioSource");
+        if (soundSource != null && audioSource == null) audioSource = soundSource.GetComponent<AudioSource>();
         dashing = false;
         speedMultiplier = 1.0f;
         efficiencyMultiplier = 1.0f;
@@ -96,8 +103,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Methods about speed multiplier
-    public void AddSpeed(float value)
+    public void AddSpeed(float value, bool playSound = true)
     {
+        if (playSound) PlaySound(pickUpSound);
         speedMultiplier += value;
     }
 
@@ -112,14 +120,15 @@ public class PlayerController : MonoBehaviour
     }
 
     // Methods about efficiency multiplier
-    public void AddEfficiency(float value)
+    public void AddEfficiency(float value, bool playSound = true)
     {
+        if (playSound) PlaySound(pickUpSound);
         efficiencyMultiplier += value;
     }
 
     public void RemoveEfficiency(float value)
     {
-        efficiencyMultiplier -= value;
+        efficiencyMultiplier = Mathf.Max(0.01f, efficiencyMultiplier -= value);
     }
 
     public float GetEfficiencyMultiplier()
@@ -133,6 +142,7 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         dashTrail.emitting = true;
         anim.speed = 1.75f;
+        if (gameHandler != null) gameHandler.ActivateCooldownUI(dashCooldown, "Dash");
         yield return new WaitForSeconds(dashDuration);
 
         dashing = false;
@@ -141,6 +151,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
+    }
+
+    public void PlaySound(AudioClip sound)
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(sound);
+        }
     }
 
 }

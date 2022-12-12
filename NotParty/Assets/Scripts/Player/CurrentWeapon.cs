@@ -12,10 +12,14 @@ public class CurrentWeapon : MonoBehaviour
     private int weaponIndex = 0;
     private WeaponInventory inventory;
 
+    private GameHandler gameHandler;
+
     // Start is called before the first frame update
     void Start()
     {
         inventory = GetComponent<WeaponInventory>();
+        GameObject handler = GameObject.FindGameObjectWithTag("GameHandler");
+        if (handler != null) gameHandler = handler.GetComponent<GameHandler>();
     }
 
     // Update is called once per frame
@@ -54,6 +58,7 @@ public class CurrentWeapon : MonoBehaviour
                 weaponIndex = weaponIndex % inventory.weaponList.Count;
 
                 weapon = inventory.weaponList[Mathf.Abs(weaponIndex)];
+                UpdateIcon();
             }
 
             if (Input.GetMouseButton(0) && weapon != null)
@@ -72,11 +77,17 @@ public class CurrentWeapon : MonoBehaviour
             weapon.GetComponent<ParticleSystem>().Stop();
         }
         weapon = newWeapon;
+        UpdateIcon();
 
         if (isShooting || Input.GetMouseButton(0))
         {
             weapon.GetComponent<ParticleSystem>().Play();
         }
+    }
+
+    private void UpdateIcon()
+    {
+        if (gameHandler != null) gameHandler.ChangeWeapon(weapon.GetComponent<WeaponType>().weaponName);
     }
 
     public void NewWeapon()
