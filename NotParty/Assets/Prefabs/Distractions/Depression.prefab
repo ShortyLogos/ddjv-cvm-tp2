@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4544594435571461256}
   - component: {fileID: 4544594435571461259}
   - component: {fileID: 4544594435571461300}
+  - component: {fileID: 94899787}
   m_Layer: 6
   m_Name: Depression
-  m_TagString: Untagged
+  m_TagString: Distraction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,8 +161,27 @@ MonoBehaviour:
   chaseSpeed: 1
   patrolSpeed: 0.5
   movementDirection: {x: 0, y: 0, z: 0}
-  targetName: Joueur
+  targetTag: Player
   maskLayers:
     serializedVersion: 2
     m_Bits: 264
   viewDistance: 10
+  appliedModifier: 0.1
+  deathAnim: {fileID: 7226888052703040409, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
+--- !u!114 &94899787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544594435571461258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c356182593c95345bc946862327a20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nom: Depression
+  isWork: 0
+  damaged: 0
+  maxHealth: 1500
+  nbrThreshold: 4

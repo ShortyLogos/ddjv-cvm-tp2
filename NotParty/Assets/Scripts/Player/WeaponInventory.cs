@@ -18,6 +18,8 @@ public class WeaponInventory : MonoBehaviour
 
     public void addWeapon(GameObject weapon)
     {
+        PlayerController player = GetComponent<PlayerController>();
+        player.PlaySound(player.pickUpSound);
         bool newWeapon = true;
         string weaponName = weapon.GetComponent<WeaponType>().weaponName;
 

@@ -10,6 +10,8 @@ TagManager:
   - Distraction
   - Environment
   - Work
+  - GameHandler
+  - Obelisk
   layers:
   - Default
   - TransparentFX

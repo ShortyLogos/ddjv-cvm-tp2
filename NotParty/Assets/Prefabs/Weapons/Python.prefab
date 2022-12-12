@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3460214706275810194}
   m_Layer: 9
   m_Name: Python
-  m_TagString: Javascript
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

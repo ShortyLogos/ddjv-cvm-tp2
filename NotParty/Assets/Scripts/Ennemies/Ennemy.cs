@@ -7,20 +7,32 @@ public class Ennemy : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rig;
 
+    [Header("Movement")]
     [SerializeField]
-    private float chaseSpeed = 1.0f, patrolSpeed = 0.5f;
+    private float chaseSpeed = 1.0f;
+    [SerializeField]
+    private float patrolSpeed = 0.5f;
     [SerializeField]
     private Vector3 movementDirection;
     private Vector3 visionDirection;
 
+    [Header("Targeting")]
     [SerializeField]
-    private string targetName;
+    private string targetTag;
     private GameObject target;
     [SerializeField]
     private LayerMask maskLayers;
-
     [SerializeField]
     private float viewDistance = 10.0f;
+
+    [Header("Effects")]
+    [SerializeField]
+    private float appliedModifier;
+
+    [Header("Animation")]
+    [SerializeField]
+    private GameObject deathAnim;
+
 
     private enum StateTree
     {
@@ -42,7 +54,7 @@ public class Ennemy : MonoBehaviour
         movementDirection.z = 0.0f;
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.Find(targetName);
+        target = GameObject.FindGameObjectWithTag(targetTag);
     }
 
     // Update is called once per frame
@@ -72,11 +84,11 @@ public class Ennemy : MonoBehaviour
         {
             if (state == StateTree.ePatrol)
             {
-                StartCoroutine(CPatrouille());
+                StartCoroutine(CPatrol());
             }
             else if (state == StateTree.eChase)
             {
-                StopCoroutine(CPatrouille());
+                StopCoroutine(CPatrol());
             }
         }
     }
@@ -108,7 +120,7 @@ public class Ennemy : MonoBehaviour
         }
     }
 
-    IEnumerator CPatrouille()
+    IEnumerator CPatrol()
     {
         while (true)
         {
@@ -138,6 +150,28 @@ public class Ennemy : MonoBehaviour
             movementDirection = Vector3.zero;
             yield return new WaitForSeconds(Random.Range(2.0f, 4.0f));
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        GameObject other = col.gameObject;
+        if (other.layer == target.layer)
+        {
+            if (target.layer == LayerMask.NameToLayer("Player"))
+            {
+                other.GetComponent<PlayerController>().RemoveEfficiency(appliedModifier);
+            } else if (target.layer == LayerMask.NameToLayer("Work"))
+            {
+                other.GetComponent<WeaponVulnerable>().Heal(appliedModifier);
+            }
+            Destroy(gameObject);
+        }
+    }
+
+    public void Defeat()
+    {
+        Instantiate(deathAnim, transform.position, Quaternion.identity, transform.parent);
+        Destroy(gameObject);
     }
 
 }

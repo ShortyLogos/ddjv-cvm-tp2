@@ -15,6 +15,7 @@ public class GameHandler : MonoBehaviour
 
     private HighScoreHandler highscoreHandler;
     private ScenesHandler sceneHandler;
+	private AudioSource audioSourceUI;
 
 	//==============================================================
 	// Start
@@ -23,7 +24,7 @@ public class GameHandler : MonoBehaviour
 	{
 		highscoreHandler = GetComponent<HighScoreHandler>();
 		sceneHandler = GetComponent<ScenesHandler>();
-
+		audioSourceUI = GameObject.Find("GameHandling/UI/AudioSource").GetComponent<AudioSource>();
 		// Get the player's actual score from the player's prefs and set the Game HUD
 		SetHighScore(highscoreHandler.LoadScore());
 
@@ -52,7 +53,7 @@ public class GameHandler : MonoBehaviour
 	//==============================================================
 	private void UpdateGraphics()
 	{
-		UpdateHeatBar();
+		UpdateCooldownBar();
 		UpdateProgressGlobe();
 		UpdateTimer();
 	}
@@ -64,10 +65,7 @@ public class GameHandler : MonoBehaviour
 	//All actions that should be done every seconds
 	private void ActionsPerSecond()
     {
-		if (!IsPaused)
-        {
-			if (Regenerate) Regen();
-        }
+		
 	}
 
 	//==============================================================
@@ -140,7 +138,6 @@ public class GameHandler : MonoBehaviour
 	private IEnumerator TrackTime()
 	{
 		float delai = sceneHandler.GetIntroDuration();
-		Debug.Log(delai);
 		yield return new WaitForSeconds(delai);
 		while (remainingDuration > 0)
 		{
@@ -206,66 +203,63 @@ public class GameHandler : MonoBehaviour
 	[SerializeField][Tooltip("Max cooldown of the bar. When the cooldown level gets there, the DisplayCooldown function is called. Default: 100")][Min(0.01f)]
 	private float maxCooldown = 100f;
 	
-	[SerializeField][Tooltip("If there's a natural regeneration for the cooldown system.")]
-	private bool Regenerate = true;
-	
-	[SerializeField][Tooltip("The amount by which the actual cooldown is decremented each second.")][Min(0.0f)]
-	private float regenerationAmount = 15f;
+	[SerializeField][Tooltip("If there's a natural regeneration for the cooldown system. Default: True")]
+	private bool regenerate = true;
 
-	[SerializeField]
-	[Tooltip("The message displayed whenever the cooldown bar start")]
-	private string messageCooldown = "Ability on Cooldown!";
+	[SerializeField][Tooltip("Influence how smooth the bar reduce. Default: 5")][Min(0.0f)]
+	private float regenerationAmount = 5.0f;
+
+	private float regenBlockTime;
 
 	// Every second, it regenerates a number of cooldown points depending on the regen stat
-	private void Regen()
-	{
-		if (godMode)
-		{
-			CoolDown(maxCooldown);
-		}
-		else
-		{
-			CoolDown(regenerationAmount);
-		}
-	}
-
-	// Increase the current Cooldown Bar
-	public void OnCooldown(float amount)
+	public void ActivateCooldownUI(float cooldownTime, string abilityName)
 	{
 		if (!gameOver && !IsPaused)
 		{
-			cooldownLevel += amount;
-			if (cooldownLevel >= maxCooldown) {
-				cooldownLevel = maxCooldown;
-				StartCoroutine(DisplayCooldown());
-			}
+			StopCoroutine(CCooldown());
+			float ratio = maxCooldown / regenerationAmount;
+			regenBlockTime = cooldownTime / ratio;
+			cooldownLevel = maxCooldown;
 			UpdateGraphics();
+			PopupText.Instance.Popup(abilityName + " on Cooldown!", 1f, 1f);
+			if (regenerate)
+            {
+				StartCoroutine(CCooldown());
+            }
 		}
 	}
 
-	// Decrease the heat level
+	private IEnumerator CCooldown()
+    {
+		while (cooldownLevel>0.0f)
+        {
+			yield return new WaitForSeconds(regenBlockTime);
+			if (godMode)
+			{
+				CoolDown(maxCooldown);
+			}
+			else
+			{
+				CoolDown(regenerationAmount);
+			}
+        }
+    }
+
+	// Decrease the cooldown level
 	public void CoolDown(float amount)
 	{
 		if (!gameOver && !IsPaused)
 		{
 			cooldownLevel -= amount;
-			if (cooldownLevel < 0)
-				cooldownLevel = 0;
+			if (cooldownLevel < 0.0f)
+				cooldownLevel = 0.0f;
 
 			UpdateGraphics();
 		}
 	}
 
-	// Called when the cooldown level gets to 100%
-	IEnumerator DisplayCooldown()
-	{
-		// Weapon or skill is unusable until it cool down. Do stuff.. play anim, sound..
-		PopupText.Instance.Popup(messageCooldown, 1f, 1f);
-		yield return null;
-	}
-
 	// Update the cooldown bar in the Game HUD
-	private void UpdateHeatBar()
+	private void UpdateCooldownBar()
 	{
 		float ratio = cooldownLevel / maxCooldown;
 		currentCooldownBar.GetComponent<Image>().fillAmount = ratio;
@@ -309,21 +303,17 @@ public class GameHandler : MonoBehaviour
 			if (progress > maxProgress || progress == maxProgress)
 			{
 				progress = maxProgress;
-				StartCoroutine(CCompleteProject());
+				Victory();
 			}
 
 			UpdateGraphics();
 		}
 	}
 
-	// Called when the level is completed and the player won
-	private IEnumerator CCompleteProject()
-	{
-		// Won the game or whatever. Do stuff.. play anim, sound..
-		sceneHandler.TogglePause();
-		victoryWindow.GetComponent<WindowController>().Open();
-		yield return null;
-	}
+	public void SetMaxProgress(float amount)
+    {
+		maxProgress = amount;
+    }
 
 	// Update the progress orb in the game HUD
 	private void UpdateProgressGlobe()
@@ -373,16 +363,23 @@ public class GameHandler : MonoBehaviour
 
 	[SerializeField][Tooltip("Window to open when a victory occurs.")]
 	private GameObject victoryWindow;
-	
+	[SerializeField][Tooltip("Sound to play when a victory occurs.")]
+	private AudioClip victorySound;
+
 	[SerializeField][Tooltip("Window to open when a defeat occurs.")]
 	private GameObject defeatWindow;
+	[SerializeField][Tooltip("Sound to play when a defeat occurs.")]
+	private AudioClip defeatSound;
+	
 
 	private bool gameOver = false;
 
 	// Open a prompt to ask for the user's name to keep its highscore
 	public void Defeat()
 	{
-		//Sound, animation, if want do something special
+		audioSourceUI.Stop();
+		audioSourceUI.ignoreListenerPause = true;
+		audioSourceUI.PlayOneShot(defeatSound);
 		gameOver = true;
 		sceneHandler.TogglePause();
 		defeatWindow.GetComponent<WindowController>().Open();
@@ -391,8 +388,17 @@ public class GameHandler : MonoBehaviour
 	// Increment the score and load a new random level
 	public void Victory()
 	{
+		audioSourceUI.Stop();
+		audioSourceUI.ignoreListenerPause = true;
+		audioSourceUI.PlayOneShot(victorySound);
 		gameOver = true;
+		sceneHandler.TogglePause();
 		highscoreHandler.IncreaseScore();
+		victoryWindow.GetComponent<WindowController>().Open();
+	}
+
+	public void NextLevel()
+    {
 		sceneHandler.PlayRandomLevel();
 	}
 
@@ -432,6 +438,17 @@ public class GameHandler : MonoBehaviour
 	private readonly string[] cheatGod = new string[] { "g", "o", "d", "m", "o", "d", "e" };
 	private int godIndex;
 
+	[SerializeField]
+	private GameObject assemblyGun;
+	[SerializeField]
+	private GameObject cPlusPlusGun;
+	[SerializeField]
+	private GameObject javascriptGun;
+	[SerializeField]
+	private GameObject pythonGun;
+	private readonly string[] cheatAssembly = new string[] { "p", "e", "w", "p", "e", "w" };
+	private int assemblyIndex;
+
 	private void CheatCodes ()
     {
 		if (Input.GetKeyDown(cheatGod[godIndex]))
@@ -443,10 +460,39 @@ public class GameHandler : MonoBehaviour
 			godIndex = 0;
 		}
 
+		if (Input.GetKeyDown(cheatAssembly[assemblyIndex]))
+        {
+			assemblyIndex++;
+		}
+        else
+        {
+			assemblyIndex = 0;
+        }
+
 		if (godIndex == cheatGod.Length)
 		{
 			godMode = !godMode;
+			PlayerController player = GameObject.Find("Map/Player").GetComponent<PlayerController>();
+			if (godMode)
+            {
+				player.AddEfficiency(10);
+				player.AddSpeed(3);
+            } else
+            {
+				player.RemoveEfficiency(10);
+				player.RemoveSpeed(3);
+            }
 			godIndex = 0;
+		}
+
+		if (assemblyIndex == cheatAssembly.Length)
+        {
+			ItemSpawner itemSpawner = GameObject.Find("Map/ItemsSpawner").GetComponent<ItemSpawner>();
+			itemSpawner.GiveLoot(assemblyGun);
+			itemSpawner.GiveLoot(cPlusPlusGun);
+			itemSpawner.GiveLoot(javascriptGun);
+			itemSpawner.GiveLoot(pythonGun);
+			assemblyIndex = 0;
 		}
 	}
 }
