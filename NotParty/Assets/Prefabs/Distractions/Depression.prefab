@@ -168,6 +168,8 @@ MonoBehaviour:
   viewDistance: 10
   appliedModifier: 0.1
   deathAnim: {fileID: 7226888052703040409, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
+  soundDeath: {fileID: 8300000, guid: 8da02c82672af2e4d99933937c51635a, type: 3}
+  audioSource: {fileID: 0}
 --- !u!114 &94899787
 MonoBehaviour:
   m_ObjectHideFlags: 0

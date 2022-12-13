@@ -32,6 +32,10 @@ public class Ennemy : MonoBehaviour
     [Header("Animation")]
     [SerializeField]
     private GameObject deathAnim;
+    [SerializeField]
+    private AudioClip soundDeath;
+    [SerializeField]
+    private AudioSource audioSource;
 
 
     private enum StateTree
@@ -55,6 +59,11 @@ public class Ennemy : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag(targetTag);
+        if (audioSource == null)
+        {
+            GameObject soundSource = GameObject.Find("GameHandling/UI/AudioSource");
+            if (soundSource != null) audioSource = soundSource.GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -170,6 +179,7 @@ public class Ennemy : MonoBehaviour
 
     public void Defeat()
     {
+        if (audioSource != null) audioSource.PlayOneShot(soundDeath);
         Instantiate(deathAnim, transform.position, Quaternion.identity, transform.parent);
         Destroy(gameObject);
     }

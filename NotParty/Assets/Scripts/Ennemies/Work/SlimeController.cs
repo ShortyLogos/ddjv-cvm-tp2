@@ -12,8 +12,11 @@ public class SlimeController : WorkController
     protected override void Start()
     {
         base.Start();
-        GameObject soundSource = GameObject.Find("GameHandling/UI/AudioSource");
-        if (soundSource != null) audioSource = soundSource.GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            GameObject soundSource = GameObject.Find("GameHandling/UI/AudioSource");
+            if (soundSource != null) audioSource = soundSource.GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame

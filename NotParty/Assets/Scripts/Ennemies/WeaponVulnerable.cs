@@ -25,6 +25,7 @@ public class WeaponVulnerable : MonoBehaviour
     private int indexThreshold = 1;
     private float threshold = 0.0f;
     private bool immune = false;
+    private Color originalColor;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,7 @@ public class WeaponVulnerable : MonoBehaviour
         {
             controller = GetComponent<WorkController>();
         }
+        originalColor = GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
@@ -77,7 +79,6 @@ public class WeaponVulnerable : MonoBehaviour
                 int test = ((int)(damaged / (threshold * indexThreshold)));
                 if (indexThreshold < nbrThreshold && test>=1)
                 {
-                    //Debug.LogWarning($"Threshold #{indexThreshold} at {damaged}/{maxHealth} with {nbrThreshold} threshold. The test gave {test}.");
                     indexThreshold++;
                     immune = true;
                     float immunityDuration = controller.ActivateAbility();
@@ -100,8 +101,14 @@ public class WeaponVulnerable : MonoBehaviour
 
     IEnumerator CFlashColor()
     {
-        sprite.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        sprite.color = Color.white;
+        if (nom != "Pepe Montinus" || !immune)
+        {
+            sprite.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            if (nom != "Pepe Montinus" || !immune)
+            {
+                sprite.color = originalColor;
+            }
+        }
     }
 }

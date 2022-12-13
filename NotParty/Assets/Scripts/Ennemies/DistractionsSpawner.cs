@@ -7,7 +7,9 @@ public class DistractionsSpawner : MonoBehaviour
     [SerializeField]
     private float minX, maxX, minY, maxY;
     [SerializeField]
-    private float cooldown;
+    private float minCooldown;
+    [SerializeField]
+    private float maxCooldown;
     [SerializeField]
     private GameObject[] list;
     [SerializeField]
@@ -38,7 +40,7 @@ public class DistractionsSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(cooldown);
+            yield return new WaitForSeconds(Random.Range(minCooldown, maxCooldown));
             SpawnDistraction();
         }
     }
