@@ -10,6 +10,8 @@ TagManager:
   - Obelisk
   - HealthSprite
   - Distraction
+  - FxTemporaire
+  - ManaSprite
   layers:
   - Default
   - TransparentFX
@@ -67,4 +69,7 @@ TagManager:
     locked: 0
   - name: TopOfObjects
     uniqueID: 293085613
+    locked: 0
+  - name: FadeScreen
+    uniqueID: 260937051
     locked: 0

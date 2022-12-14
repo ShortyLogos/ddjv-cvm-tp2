@@ -1,14 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using NoParty;
 
-//#if UNITY_EDITOR
-//using UnityEditor;
-//#endif
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 // FadeScreen script requiert que le GameObject possède une composante Image.
 [RequireComponent(typeof(Image))]
-public class FadeScreen: MonoBehaviour
+public class FadeScreen: MonoBehaviour, ICanvasRaycastFilter
 {
     [SerializeField] [Tooltip("Do you want the scene to have a fade in effect?")]
     private bool fadeIn;
@@ -36,26 +37,24 @@ public class FadeScreen: MonoBehaviour
     [SerializeField] [Min(0)] [Tooltip("Amount of seconds to wait before starting the fade out.")]
     private float delai = 0.0f;
 
+    [SerializeField]
     private Image rendu;
-    private Canvas canvas;
-
-    private void OnValidate()
-    {
-        rendu = gameObject.GetComponent<Image>();
-        rendu.color = new Color32(0, 0, 0, 0);
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (rendu == null)
+        {
+            rendu = gameObject.GetComponent<Image>();
+        }
         gameObject.tag = "FadeScreen";
-        canvas = gameObject.GetComponentInParent<Canvas>();
-
-
         if (fadeIn)
         {
             rendu.color = new Color32(0, 0, 0, 255);
             FadeIn();
+        } else
+        {
+            rendu.color = new Color32(0, 0, 0, 0);
         }
 
         if (autoFadeOut)
@@ -125,8 +124,6 @@ public class FadeScreen: MonoBehaviour
 
             yield return StartCoroutine(Utility.WaitForRealSeconds(vitesseFadeIn));
         }
-
-        canvas.enabled = false;
     }
 
     private IEnumerator CFadeOut(bool skipDelai)
@@ -135,9 +132,8 @@ public class FadeScreen: MonoBehaviour
         {
             yield return StartCoroutine(Utility.WaitForRealSeconds(delai));
         }
-
-        canvas.enabled = true;
-
+        StopCoroutine(CFadeIn());
+        rendu.color = new Color32(0, 0, 0, 0);
         Color couleur = rendu.color;
         float alpha = couleur.a;
 
@@ -151,73 +147,78 @@ public class FadeScreen: MonoBehaviour
         }
     }
 
-//#if UNITY_EDITOR
-//    // https://www.youtube.com/watch?v=RImM7XYdeAc
-//    // https://docs.unity3d.com/Manual/editor-CustomEditors.html
-//    [CustomEditor(typeof(FadeScreen))]
-//    [CanEditMultipleObjects]
-//    public class FadeScreenEditor : Editor
-//    {
-//        SerializedProperty fadeInProperty;
-//        SerializedProperty fadeOutProperty;
-//        SerializedProperty autoFadeOutProperty;
-//        SerializedProperty vitesseFadeInProperty;
-//        SerializedProperty vitesseFadeOutProperty;
-//        SerializedProperty delaiProperty;
-//        SerializedProperty incrementationProperty;
-//        SerializedProperty decrementationProperty;
+    public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
+    {
+        return false;
+    }
 
-//        private void OnEnable()
-//        {
-//            fadeInProperty = serializedObject.FindProperty("fadeIn");
-//            fadeOutProperty = serializedObject.FindProperty("fadeOut");
-//            autoFadeOutProperty = serializedObject.FindProperty("autoFadeOut");
-//            vitesseFadeInProperty = serializedObject.FindProperty("vitesseFadeIn");
-//            vitesseFadeOutProperty = serializedObject.FindProperty("vitesseFadeOut");
-//            delaiProperty = serializedObject.FindProperty("delai");
-//            incrementationProperty = serializedObject.FindProperty("incrementation");
-//            decrementationProperty = serializedObject.FindProperty("decrementation");
-//        }
+#if UNITY_EDITOR
+    // https://www.youtube.com/watch?v=RImM7XYdeAc
+    // https://docs.unity3d.com/Manual/editor-CustomEditors.html
+    [CustomEditor(typeof(FadeScreen))]
+    [CanEditMultipleObjects]
+    public class FadeScreenEditor : Editor
+    {
+        SerializedProperty fadeInProperty;
+        SerializedProperty fadeOutProperty;
+        SerializedProperty autoFadeOutProperty;
+        SerializedProperty vitesseFadeInProperty;
+        SerializedProperty vitesseFadeOutProperty;
+        SerializedProperty delaiProperty;
+        SerializedProperty incrementationProperty;
+        SerializedProperty decrementationProperty;
 
-//        public override void OnInspectorGUI()
-//        {
-//            // https://answers.unity.com/questions/1223009/how-to-show-the-standard-script-line-with-a-custom.html
-//            using (new EditorGUI.DisabledScope(true))
-//                EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour((MonoBehaviour)target), GetType(), false);
+        private void OnEnable()
+        {
+            fadeInProperty = serializedObject.FindProperty("fadeIn");
+            fadeOutProperty = serializedObject.FindProperty("fadeOut");
+            autoFadeOutProperty = serializedObject.FindProperty("autoFadeOut");
+            vitesseFadeInProperty = serializedObject.FindProperty("vitesseFadeIn");
+            vitesseFadeOutProperty = serializedObject.FindProperty("vitesseFadeOut");
+            delaiProperty = serializedObject.FindProperty("delai");
+            incrementationProperty = serializedObject.FindProperty("incrementation");
+            decrementationProperty = serializedObject.FindProperty("decrementation");
+        }
 
-//            serializedObject.Update();
+        public override void OnInspectorGUI()
+        {
+            // https://answers.unity.com/questions/1223009/how-to-show-the-standard-script-line-with-a-custom.html
+            using (new EditorGUI.DisabledScope(true))
+                EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour((MonoBehaviour)target), GetType(), false);
 
-//            EditorGUILayout.PropertyField(fadeInProperty);
-//            if (fadeInProperty.boolValue)
-//            {
-//                EditorGUI.indentLevel++;
-//                EditorGUILayout.PropertyField(decrementationProperty);
-//                EditorGUILayout.PropertyField(vitesseFadeInProperty);
-//                EditorGUI.indentLevel--;
-//            }
+            serializedObject.Update();
 
-//            EditorGUILayout.PropertyField(fadeOutProperty);
-//            if (fadeOutProperty.boolValue)
-//            {
-//                EditorGUI.indentLevel++;
-//                EditorGUILayout.PropertyField(incrementationProperty);
-//                EditorGUILayout.PropertyField(vitesseFadeOutProperty);
-//                EditorGUI.indentLevel--;
-//                EditorGUILayout.PropertyField(autoFadeOutProperty);
-//                if (autoFadeOutProperty.boolValue)
-//                {
-//                    EditorGUI.indentLevel++;
-//                    EditorGUILayout.PropertyField(delaiProperty);
-//                    EditorGUI.indentLevel--;
-//                }
-//            }
+            EditorGUILayout.PropertyField(fadeInProperty);
+            if (fadeInProperty.boolValue)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(decrementationProperty);
+                EditorGUILayout.PropertyField(vitesseFadeInProperty);
+                EditorGUI.indentLevel--;
+            }
+
+            EditorGUILayout.PropertyField(fadeOutProperty);
+            if (fadeOutProperty.boolValue)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(incrementationProperty);
+                EditorGUILayout.PropertyField(vitesseFadeOutProperty);
+                EditorGUI.indentLevel--;
+                EditorGUILayout.PropertyField(autoFadeOutProperty);
+                if (autoFadeOutProperty.boolValue)
+                {
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(delaiProperty);
+                    EditorGUI.indentLevel--;
+                }
+            }
 
 
 
-//            serializedObject.ApplyModifiedProperties();
-//        }
-//    }
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
 
-//#endif
+#endif
 
 }

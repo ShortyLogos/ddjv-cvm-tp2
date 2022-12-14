@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
+using NoParty;
 
 public class ScenesHandler: MonoBehaviour
 {
@@ -44,6 +44,9 @@ public class ScenesHandler: MonoBehaviour
 
     private void Start()
     {
+        levelsList.Add("Scenes/Levels/Catacombs");
+        levelsList.Add("Scenes/Levels/Grassland");
+        levelsList.Add("Scenes/Levels/Laboratory");
         if (fadeScreen == null)
         {
             GetFadeScreen();
@@ -111,36 +114,17 @@ public class ScenesHandler: MonoBehaviour
 
     public string GetRandomLevel()
     {
-        BuildLevelList();
-        string newScene = "";
+        string currentScene = "Scenes/Levels/" + SceneManager.GetActiveScene().name;
+        string newScene = currentScene;
         if (levelsList.Count>0)
         {
-            string currentScene = "Scenes/Levels/" + SceneManager.GetActiveScene().name;
             do
             {
                 int randomIndex = (int)Mathf.Floor(Random.Range(0.0f, (float)levelsList.Count));
                 newScene = levelsList[randomIndex];
-            } while (newScene == currentScene);
-        } else
-        {
-            Debug.Log("Sorry but you'll have to pay for the DLC to unlock the levels of the game.");
+            } while (newScene.Equals(currentScene));
         }
         return newScene;
-    }
-
-    private void BuildLevelList()
-    {
-        DirectoryInfo dir = new DirectoryInfo("Assets/Scenes/Levels/");
-        string extension = ".unity";
-        FileInfo[] filesList = dir.GetFiles();
-        foreach (FileInfo file in filesList) {
-            string fileName = file.Name;
-            if (fileName.EndsWith(extension))
-            {
-                string cleanName = Path.GetFileNameWithoutExtension(fileName);
-                levelsList.Add("Scenes/Levels/" + cleanName);
-            }
-        }
     }
 
     private float ActivateFadeOut()
