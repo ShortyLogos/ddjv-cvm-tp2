@@ -2,9 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+//#if UNITY_EDITOR
+//using UnityEditor;
+//#endif
 
 // FadeScreen script requiert que le GameObject possède une composante Image.
 [RequireComponent(typeof(Image))]
@@ -151,73 +151,73 @@ public class FadeScreen: MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
-    // https://www.youtube.com/watch?v=RImM7XYdeAc
-    // https://docs.unity3d.com/Manual/editor-CustomEditors.html
-    [CustomEditor(typeof(FadeScreen))]
-    [CanEditMultipleObjects]
-    public class FadeScreenEditor : Editor
-    {
-        SerializedProperty fadeInProperty;
-        SerializedProperty fadeOutProperty;
-        SerializedProperty autoFadeOutProperty;
-        SerializedProperty vitesseFadeInProperty;
-        SerializedProperty vitesseFadeOutProperty;
-        SerializedProperty delaiProperty;
-        SerializedProperty incrementationProperty;
-        SerializedProperty decrementationProperty;
+//#if UNITY_EDITOR
+//    // https://www.youtube.com/watch?v=RImM7XYdeAc
+//    // https://docs.unity3d.com/Manual/editor-CustomEditors.html
+//    [CustomEditor(typeof(FadeScreen))]
+//    [CanEditMultipleObjects]
+//    public class FadeScreenEditor : Editor
+//    {
+//        SerializedProperty fadeInProperty;
+//        SerializedProperty fadeOutProperty;
+//        SerializedProperty autoFadeOutProperty;
+//        SerializedProperty vitesseFadeInProperty;
+//        SerializedProperty vitesseFadeOutProperty;
+//        SerializedProperty delaiProperty;
+//        SerializedProperty incrementationProperty;
+//        SerializedProperty decrementationProperty;
 
-        private void OnEnable()
-        {
-            fadeInProperty = serializedObject.FindProperty("fadeIn");
-            fadeOutProperty = serializedObject.FindProperty("fadeOut");
-            autoFadeOutProperty = serializedObject.FindProperty("autoFadeOut");
-            vitesseFadeInProperty = serializedObject.FindProperty("vitesseFadeIn");
-            vitesseFadeOutProperty = serializedObject.FindProperty("vitesseFadeOut");
-            delaiProperty = serializedObject.FindProperty("delai");
-            incrementationProperty = serializedObject.FindProperty("incrementation");
-            decrementationProperty = serializedObject.FindProperty("decrementation");
-        }
+//        private void OnEnable()
+//        {
+//            fadeInProperty = serializedObject.FindProperty("fadeIn");
+//            fadeOutProperty = serializedObject.FindProperty("fadeOut");
+//            autoFadeOutProperty = serializedObject.FindProperty("autoFadeOut");
+//            vitesseFadeInProperty = serializedObject.FindProperty("vitesseFadeIn");
+//            vitesseFadeOutProperty = serializedObject.FindProperty("vitesseFadeOut");
+//            delaiProperty = serializedObject.FindProperty("delai");
+//            incrementationProperty = serializedObject.FindProperty("incrementation");
+//            decrementationProperty = serializedObject.FindProperty("decrementation");
+//        }
 
-        public override void OnInspectorGUI()
-        {
-            // https://answers.unity.com/questions/1223009/how-to-show-the-standard-script-line-with-a-custom.html
-            using (new EditorGUI.DisabledScope(true))
-                EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour((MonoBehaviour)target), GetType(), false);
+//        public override void OnInspectorGUI()
+//        {
+//            // https://answers.unity.com/questions/1223009/how-to-show-the-standard-script-line-with-a-custom.html
+//            using (new EditorGUI.DisabledScope(true))
+//                EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour((MonoBehaviour)target), GetType(), false);
 
-            serializedObject.Update();
+//            serializedObject.Update();
 
-            EditorGUILayout.PropertyField(fadeInProperty);
-            if (fadeInProperty.boolValue)
-            {
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(decrementationProperty);
-                EditorGUILayout.PropertyField(vitesseFadeInProperty);
-                EditorGUI.indentLevel--;
-            }
+//            EditorGUILayout.PropertyField(fadeInProperty);
+//            if (fadeInProperty.boolValue)
+//            {
+//                EditorGUI.indentLevel++;
+//                EditorGUILayout.PropertyField(decrementationProperty);
+//                EditorGUILayout.PropertyField(vitesseFadeInProperty);
+//                EditorGUI.indentLevel--;
+//            }
 
-            EditorGUILayout.PropertyField(fadeOutProperty);
-            if (fadeOutProperty.boolValue)
-            {
-                EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(incrementationProperty);
-                EditorGUILayout.PropertyField(vitesseFadeOutProperty);
-                EditorGUI.indentLevel--;
-                EditorGUILayout.PropertyField(autoFadeOutProperty);
-                if (autoFadeOutProperty.boolValue)
-                {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(delaiProperty);
-                    EditorGUI.indentLevel--;
-                }
-            }
+//            EditorGUILayout.PropertyField(fadeOutProperty);
+//            if (fadeOutProperty.boolValue)
+//            {
+//                EditorGUI.indentLevel++;
+//                EditorGUILayout.PropertyField(incrementationProperty);
+//                EditorGUILayout.PropertyField(vitesseFadeOutProperty);
+//                EditorGUI.indentLevel--;
+//                EditorGUILayout.PropertyField(autoFadeOutProperty);
+//                if (autoFadeOutProperty.boolValue)
+//                {
+//                    EditorGUI.indentLevel++;
+//                    EditorGUILayout.PropertyField(delaiProperty);
+//                    EditorGUI.indentLevel--;
+//                }
+//            }
 
 
 
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
+//            serializedObject.ApplyModifiedProperties();
+//        }
+//    }
 
-#endif
+//#endif
 
 }

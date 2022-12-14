@@ -34,6 +34,7 @@ public class SlimeController : WorkController
 
     public override float ActivateAbility()
     {
+        EventManager.TriggerEvent("Alert", "Flubber is out of control!");
         anim.SetTrigger("SpecialAbility");
         if (audioSource != null) audioSource.PlayOneShot(soundTornado);
         return specialAbilityDuration;

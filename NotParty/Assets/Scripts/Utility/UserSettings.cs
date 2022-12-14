@@ -8,14 +8,22 @@ using UnityEngine.UI;
 
 public class UserSettings : MonoBehaviour
 {
-    [SerializeField] private AudioMixer mixer;
-    [SerializeField] private Dropdown resolutionDropdown;
+    [SerializeField] 
+    private AudioMixer mixer;
+    [SerializeField] 
+    private Dropdown resolutionDropdown;
+    [SerializeField]
+    private GameObject toggleDialogues;
 
     Resolution[] resolutions;
 
     private void Start()
     {
         if (resolutionDropdown != null) BuildResolutionList();
+        if (toggleDialogues != null) {
+            bool isActive = PlayerPrefs.GetString("PlayDialogue").Equals("True");
+            toggleDialogues.GetComponent<Toggle>().isOn = isActive;
+        }
         mixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("volume", -20.0f));
     }
 
@@ -64,5 +72,10 @@ public class UserSettings : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetDialogues (bool isActive)
+    {
+        PlayerPrefs.SetString("PlayDialogue", isActive.ToString());
     }
 }

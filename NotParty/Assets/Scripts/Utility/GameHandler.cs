@@ -25,8 +25,12 @@ public class GameHandler : MonoBehaviour
 		highscoreHandler = GetComponent<HighScoreHandler>();
 		sceneHandler = GetComponent<ScenesHandler>();
 		audioSourceUI = GameObject.Find("GameHandling/UI/AudioSource").GetComponent<AudioSource>();
-		// Get the player's actual score from the player's prefs and set the Game HUD
-		SetHighScore(highscoreHandler.LoadScore());
+		
+		// Get the player's actual score from the player's prefs, set the Game HUD & scale game
+		int score = highscoreHandler.LoadScore();
+		SetHighScore(score);
+		float difficulty = Mathf.Ceil((score / 3.0f));
+		PlayerPrefs.SetFloat("Difficulty", difficulty);
 
 		// Timer Start
 		remainingDuration = totalDuration;
@@ -100,7 +104,7 @@ public class GameHandler : MonoBehaviour
 
 			}
 			pauseMenuOpened = !pauseMenuOpened;
-			sceneHandler.TogglePause();
+			Pause();
         }
 	}
 
@@ -422,7 +426,8 @@ public class GameHandler : MonoBehaviour
     public void Pause()
     {
 		sceneHandler.TogglePause();
-    }
+		EventManager.TriggerEvent("LorsPause", IsPaused);
+	}
 
     //==============================================================
     // Big Secrets

@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f2dd9bd08d6384c9caf23dbad95d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  efficiencyBoost: 0.1
+  efficiencyBoost: 0.2

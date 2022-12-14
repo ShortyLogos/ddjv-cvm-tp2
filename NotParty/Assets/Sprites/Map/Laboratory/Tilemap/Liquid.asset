@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Liquid
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: -1632191910, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 1247460218, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: -667650136, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: -634721627, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 1848555465, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 1757966708, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: -1158889042, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: -190928410, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 760438701, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 896384909, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 69151393, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 91200365, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: -1701444470, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 511300948, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: 953763852, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  - {fileID: -405494347, guid: f24e2077116969f4b927a5daf992382e, type: 3}
+  m_MinSpeed: 10
+  m_MaxSpeed: 10
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0

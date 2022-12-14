@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,10 +33,12 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip pickUpSound;
 
-    private float speedMultiplier { get; set; }
-    private float efficiencyMultiplier { get; set; }
+    private float SpeedMultiplier { get; set; }
+    private float EfficiencyMultiplier { get; set; }
 
     private GameHandler gameHandler;
+    private bool gamePaused = false;
+    private UnityAction<object> lorsPause;
 
     void Start()
     {
@@ -48,56 +50,59 @@ public class PlayerController : MonoBehaviour
         GameObject soundSource = GameObject.Find("GameHandling/UI/AudioSource");
         if (soundSource != null && audioSource == null) audioSource = soundSource.GetComponent<AudioSource>();
         dashing = false;
-        speedMultiplier = 1.0f;
-        efficiencyMultiplier = 1.0f;
+        SpeedMultiplier = 1.0f;
+        EfficiencyMultiplier = 1.0f;
         mouvement.z = 0.0f;
     }
 
     void Update()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-
-        if (Mathf.Abs(inputX) > 0.01f || Mathf.Abs(inputY) > 0.01f)
+        if (!gamePaused)
         {
-            startedMoving = true;
-        }
+            float inputX = Input.GetAxisRaw("Horizontal");
+            float inputY = Input.GetAxisRaw("Vertical");
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
-        if (startedMoving)
-        {
-            mouvement.x = inputX;
-            mouvement.y = inputY;
-        }
+            if (Mathf.Abs(inputX) > 0.01f || Mathf.Abs(inputY) > 0.01f)
+            {
+                startedMoving = true;
+            }
 
-        anim.SetFloat("mouseX", mousePos.x);
-        anim.SetFloat("mouseY", mousePos.y);
+            if (startedMoving)
+            {
+                mouvement.x = inputX;
+                mouvement.y = inputY;
+            }
 
-        float speed = 0.0f;
-        if (startedMoving)
-        {
-            speed = mouvement.sqrMagnitude;
-        }
+            anim.SetFloat("mouseX", mousePos.x);
+            anim.SetFloat("mouseY", mousePos.y);
 
-        anim.SetFloat("speed", speed);
+            float speed = 0.0f;
+            if (startedMoving)
+            {
+                speed = mouvement.sqrMagnitude;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !dashing && canDash)
-        {
-            StartCoroutine(CDash());
+            anim.SetFloat("speed", speed);
+
+            if (Input.GetKeyDown(KeyCode.Space) && !dashing && canDash)
+            {
+                StartCoroutine(CDash());
+            }
         }
     }
 
     void FixedUpdate()
     {
-        if (startedMoving)
+        if (startedMoving & !gamePaused)
         {
             if (!dashing)
             {
-                rig.velocity = mouvement.normalized * speed * speedMultiplier;
+                rig.velocity = mouvement.normalized * speed * SpeedMultiplier;
             }
             else
             {
-                rig.AddForce(mouvement.normalized * speed * dashSpeedMultiplier * speedMultiplier, ForceMode2D.Force);
+                rig.AddForce(mouvement.normalized * speed * dashSpeedMultiplier * SpeedMultiplier, ForceMode2D.Force);
             }
         }
     }
@@ -106,34 +111,34 @@ public class PlayerController : MonoBehaviour
     public void AddSpeed(float value, bool playSound = true)
     {
         if (playSound) PlaySound(pickUpSound);
-        speedMultiplier += value;
+        SpeedMultiplier += value;
     }
 
     public void RemoveSpeed(float value)
     {
-        speedMultiplier -= value;
+        SpeedMultiplier -= value;
     }
 
     public float GetSpeedMultiplier()
     {
-        return speedMultiplier;
+        return SpeedMultiplier;
     }
 
     // Methods about efficiency multiplier
     public void AddEfficiency(float value, bool playSound = true)
     {
         if (playSound) PlaySound(pickUpSound);
-        efficiencyMultiplier += value;
+        EfficiencyMultiplier += value;
     }
 
     public void RemoveEfficiency(float value)
     {
-        efficiencyMultiplier = Mathf.Max(0.01f, efficiencyMultiplier -= value);
+        EfficiencyMultiplier = Mathf.Max(0.01f, EfficiencyMultiplier -= value);
     }
 
     public float GetEfficiencyMultiplier()
     {
-        return efficiencyMultiplier;
+        return EfficiencyMultiplier;
     }
 
     IEnumerator CDash()
@@ -161,4 +166,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void Awake()
+    {
+        lorsPause = new UnityAction<object>(LorsPause);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening("LorsPause", lorsPause);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("LorsPause", lorsPause);
+    }
+
+    private void LorsPause(object data)
+    {
+        gamePaused ^= true;
+    }
 }

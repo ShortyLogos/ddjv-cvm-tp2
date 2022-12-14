@@ -12,11 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 5ee97742a79ac5f40b90990b3256caeb
   - enabled: 1
-    path: Assets/Scenes/BaseArme.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Levels/Catacombs.unity
+    guid: a098c4d31025c32469b7cceb5a6312d1
   - enabled: 1
-    path: Assets/Scenes/Levels/New Scene.unity
-    guid: a8d4843f398e0e049906b0adb0a2617b
+    path: Assets/Scenes/Levels/Grassland.unity
+    guid: 22b087a49e12f1d41929d89d32ef2257
+  - enabled: 1
+    path: Assets/Scenes/Levels/Laboratory.unity
+    guid: 282c3d303e5c30845b43892bf49b1ee6
   - enabled: 1
     path: Assets/Scenes/ShutDown.unity
     guid: f7f3050ec0a80a0428a99fdaa417d90b

@@ -13,7 +13,7 @@ public class WeaponVulnerable : MonoBehaviour
     private bool isWork;
 
     [SerializeField]
-    private float damaged;
+    private float damageTaken;
     [SerializeField]
     private float maxHealth;
 
@@ -41,6 +41,9 @@ public class WeaponVulnerable : MonoBehaviour
         if (isWork)
         {
             controller = GetComponent<WorkController>();
+            float difficulty = PlayerPrefs.GetFloat("Difficulty", 1);
+            float scale = difficulty / 10;
+            maxHealth += maxHealth * scale;
         }
         originalColor = GetComponent<SpriteRenderer>().color;
     }
@@ -48,7 +51,7 @@ public class WeaponVulnerable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (damaged >= maxHealth)
+        if (damageTaken >= maxHealth)
         {
             if (isWork)
             {
@@ -57,12 +60,15 @@ public class WeaponVulnerable : MonoBehaviour
             {
                 GetComponent<Ennemy>().Defeat();
             }
+        } else if (isWork && damageTaken >= 0.75*maxHealth)
+        {
+            EventManager.TriggerEvent("LowLife", (damageTaken, maxHealth));
         }
     }
 
     public void Heal(float amount)
     {
-        damaged = Mathf.Clamp(damaged -= amount, 0.0f, maxHealth);
+        damageTaken = Mathf.Clamp(damageTaken -= amount, 0.0f, maxHealth);
         if (gameHandler != null)
         {
             gameHandler.SetBackProgress(amount);
@@ -73,10 +79,10 @@ public class WeaponVulnerable : MonoBehaviour
     {
         if (!immune)
         {
-            damaged = Mathf.Clamp(damaged += amount, 0.0f, maxHealth);
+            damageTaken = Mathf.Clamp(damageTaken += amount, 0.0f, maxHealth);
             if (isWork)
             {
-                int test = ((int)(damaged / (threshold * indexThreshold)));
+                int test = ((int)(damageTaken / (threshold * indexThreshold)));
                 if (indexThreshold < nbrThreshold && test>=1)
                 {
                     indexThreshold++;

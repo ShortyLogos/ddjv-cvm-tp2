@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rdm = UnityEngine.Random;
 using System;
 
 public class ItemSpawner : MonoBehaviour
@@ -14,6 +15,14 @@ public class ItemSpawner : MonoBehaviour
 
     [SerializeField]
     private float minX, maxX, minY, maxY;
+    [SerializeField]
+    private float spawnZoneX, spawnZoneY, spawnZoneSize;
+    [SerializeField]
+    private LayerMask layerMask;
+    [SerializeField]
+    private float radiusCheck;
+    [SerializeField]
+    int maxAttempts = 100;
     [SerializeField]
     private GameObject glowingEffect;
 
@@ -47,7 +56,7 @@ public class ItemSpawner : MonoBehaviour
         }
 
         GameObject startingWeapon = GetRandomItem(ListType.Weapons).Prefab;
-        PlaceObject(startingWeapon, new Vector3(5,5,5));
+        PlaceObject(startingWeapon, new Vector3(Rdm.Range(spawnZoneX, spawnZoneX+spawnZoneSize), Rdm.Range(spawnZoneY,spawnZoneY+spawnZoneSize), 0));
         StartCoroutine(CSpawnerWeapons());
         StartCoroutine(CSpawnerItems());
     }
@@ -77,7 +86,7 @@ public class ItemSpawner : MonoBehaviour
         {
             case ListType.Weapons:
                 {
-                    float x = UnityEngine.Random.Range(0, totalRatioWeapons);
+                    float x = Rdm.Range(0, totalRatioWeapons);
                     foreach(Item weapon in weaponsList)
                     {
                         if ((x -= weapon.Rarity) < 0)
@@ -89,7 +98,7 @@ public class ItemSpawner : MonoBehaviour
                 }
             case ListType.Items:
                 {
-                    float x = UnityEngine.Random.Range(0, totalRatioItems);
+                    float x = Rdm.Range(0, totalRatioItems);
                     foreach(Item item in itemsList)
                     {
                         if ((x -= item.Rarity) < 0)
@@ -109,9 +118,22 @@ public class ItemSpawner : MonoBehaviour
 
     private GameObject PlaceObject(GameObject itemPrefab)
     {
-        float x = UnityEngine.Random.Range(minX, maxX);
-        float y = UnityEngine.Random.Range(minY, maxY);
-        Vector3 position = new Vector3(x, y, 0);
+        int attempts = 0;
+        bool validPlacement = false;
+        Vector3 position = Vector3.zero;
+        while (!validPlacement)
+        {
+            attempts++;
+            float x = Rdm.Range(minX, maxX);
+            float y = Rdm.Range(minY, maxY);
+            position = new Vector3(x, y, 0);
+            validPlacement = Physics2D.OverlapCircle(position, radiusCheck, layerMask) == null;
+            if (attempts>maxAttempts)
+            {
+                Debug.LogWarning($"{attempts} attempts were made to spawn an item, should probably reduce placement's radius.");
+                break;
+            }
+        }
         GameObject loot = Instantiate(itemPrefab, position, Quaternion.identity, transform);
         Instantiate(glowingEffect, loot.transform.position, Quaternion.identity, loot.transform);
         return loot;

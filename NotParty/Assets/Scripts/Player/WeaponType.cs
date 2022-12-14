@@ -9,19 +9,9 @@ public class WeaponType : MonoBehaviour
     [SerializeField]
     private float efficiency;
 
-    [SerializeField]
-    private float cooldown;
-
-    private ParticleSystem particules;
-
-    void Start()
-    {
-        particules = GetComponent<ParticleSystem>();
-    }
-
     void OnParticleCollision(GameObject collision)
     {
-        if (collision.CompareTag("Work") || collision.CompareTag("Distraction"))
+        if (collision.layer == LayerMask.NameToLayer("Work") || collision.layer == LayerMask.NameToLayer("Distractions"))
         {
             float damage = efficiency * GetComponentInParent<PlayerController>().GetEfficiencyMultiplier();
             collision.GetComponent<WeaponVulnerable>().Hit(damage);

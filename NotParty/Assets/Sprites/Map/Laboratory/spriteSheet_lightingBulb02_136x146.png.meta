@@ -1,0 +1,914 @@
+fileFormatVersion: 2
+guid: 041e285a809c0a94abc0b5ac82a8f744
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 48
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 730
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d52b1335e009d64982a90914cdd62ac
+      internalID: 1433578356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_1
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 730
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ae00dea33f59841aca087272562050
+      internalID: 1646832140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_2
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 730
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8760b433253f4e04483cad22c051e27a
+      internalID: 1913332610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_3
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 730
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9a926c2956c6a54b97595084c83951c
+      internalID: 1893683174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_4
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 730
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6852dc754bb81ff49961290ea4cc2ddc
+      internalID: -618895515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_5
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 730
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 566c6d786c1d78e49989987a267b8ee3
+      internalID: -2027948584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 584
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7574b8f90badd684e83cfa0051d2c4a7
+      internalID: -1330475320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_7
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 584
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8265445fc46642b4987c83c87b3518e6
+      internalID: 9889774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_8
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 584
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2ac8eb80acb8f441bc1dfa0aef883d2
+      internalID: -587223739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_9
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 584
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd8aac27c57ee314c82c7aa8edf839d4
+      internalID: 177936850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_10
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 584
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c209a432dc57948ab497f0b17912c8
+      internalID: -2134397079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_11
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 584
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60e8ec7cb3a4c0448a26915a5360ec32
+      internalID: 1053147824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 438
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ad6fb2aedcf1584c96dbdabe71effa5
+      internalID: -1461972185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_13
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 438
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 419811ef46becaf4285b384f51e370af
+      internalID: 1365254127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_14
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 438
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a9fd80d51ff7574d9475dd978523bf7
+      internalID: 73751101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_15
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 438
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a921ca85ff61a6c41b39508a922511f6
+      internalID: -770994127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_16
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 438
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f4da1949251c7543a45bdb5f64a52ce
+      internalID: -873486547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_17
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 438
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e495c19caa127d4b8248265b06c1684
+      internalID: 2124023392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 292
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2de4731f1953bd94190e4ba552055ad8
+      internalID: 1742372403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_19
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 292
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81d31d06bab436448bb6997cdb1b60db
+      internalID: 787946558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_20
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 292
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a935e6e23ca84dd4a932682fe36be3a5
+      internalID: -2100245339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_21
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 292
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9487aa558f787c242b80efb645b6bade
+      internalID: 1086302027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_22
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 292
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63976d7141bf23a48a1a4e71cb694e7c
+      internalID: -1270627266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_23
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 292
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 080bd7b066dead9439fe76c28d5e6ff9
+      internalID: -602259647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 146
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44f4982b5868dad428ea92bcefcfdede
+      internalID: 125303373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_25
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 146
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73f5c80ed03e53f4f937c1282913df44
+      internalID: -348818481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_26
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 146
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cac0023121b87541b0b01824cc6f1cf
+      internalID: 465195427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_27
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 146
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ff7f80721917f541928b0d070866370
+      internalID: 1523184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_28
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 146
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f1cadd1f64dd004fb620c039f60b513
+      internalID: 662770882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_29
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 146
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0d465e21b6b3f4f9fc5066469dba74
+      internalID: -716530404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cc52000eb5fe3745be2c5625de98c6a
+      internalID: -804414161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_31
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 0
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d6eb0dffbbb3bc4ca180295fb0c6336
+      internalID: -970044472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_32
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 0
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09a9b10fd241cdc4d86af16e9b9ddc6f
+      internalID: 1362784253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_33
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 0
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc0ee5af108c5824d8b83f9fd4153a74
+      internalID: 275331945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_34
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 0
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08f120f97358df14b8c551e112cc9e51
+      internalID: -711324063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_lightingBulb02_136x146_35
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 0
+        width: 136
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1a4bce41b432b84b99acdee8d327e7c
+      internalID: -795294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      spriteSheet_lightingBulb02_136x146_16: -873486547
+      spriteSheet_lightingBulb02_136x146_10: -2134397079
+      spriteSheet_lightingBulb02_136x146_17: 2124023392
+      spriteSheet_lightingBulb02_136x146_4: -618895515
+      spriteSheet_lightingBulb02_136x146_20: -2100245339
+      spriteSheet_lightingBulb02_136x146_27: 1523184
+      spriteSheet_lightingBulb02_136x146_13: 1365254127
+      spriteSheet_lightingBulb02_136x146_15: -770994127
+      spriteSheet_lightingBulb02_136x146_28: 662770882
+      spriteSheet_lightingBulb02_136x146_35: -795294
+      spriteSheet_lightingBulb02_136x146_8: -587223739
+      spriteSheet_lightingBulb02_136x146_7: 9889774
+      spriteSheet_lightingBulb02_136x146_3: 1893683174
+      spriteSheet_lightingBulb02_136x146_23: -602259647
+      spriteSheet_lightingBulb02_136x146_11: 1053147824
+      spriteSheet_lightingBulb02_136x146_25: -348818481
+      spriteSheet_lightingBulb02_136x146_9: 177936850
+      spriteSheet_lightingBulb02_136x146_34: -711324063
+      spriteSheet_lightingBulb02_136x146_18: 1742372403
+      spriteSheet_lightingBulb02_136x146_0: 1433578356
+      spriteSheet_lightingBulb02_136x146_30: -804414161
+      spriteSheet_lightingBulb02_136x146_32: 1362784253
+      spriteSheet_lightingBulb02_136x146_21: 1086302027
+      spriteSheet_lightingBulb02_136x146_29: -716530404
+      spriteSheet_lightingBulb02_136x146_5: -2027948584
+      spriteSheet_lightingBulb02_136x146_14: 73751101
+      spriteSheet_lightingBulb02_136x146_31: -970044472
+      spriteSheet_lightingBulb02_136x146_2: 1913332610
+      spriteSheet_lightingBulb02_136x146_24: 125303373
+      spriteSheet_lightingBulb02_136x146_26: 465195427
+      spriteSheet_lightingBulb02_136x146_1: 1646832140
+      spriteSheet_lightingBulb02_136x146_6: -1330475320
+      spriteSheet_lightingBulb02_136x146_12: -1461972185
+      spriteSheet_lightingBulb02_136x146_22: -1270627266
+      spriteSheet_lightingBulb02_136x146_19: 787946558
+      spriteSheet_lightingBulb02_136x146_33: 275331945
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

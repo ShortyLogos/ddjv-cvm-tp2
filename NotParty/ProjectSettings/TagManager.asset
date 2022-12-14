@@ -5,13 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - FadeScreen
-  - Cplusplus
-  - Javascript
-  - Distraction
-  - Environment
   - Work
   - GameHandler
   - Obelisk
+  - HealthSprite
+  - Distraction
   layers:
   - Default
   - TransparentFX
@@ -22,8 +20,8 @@ TagManager:
   - Distractions
   - Work
   - Environment
-  - Language
-  - Untouchable
+  - Obstacle
+  - 
   - 
   - 
   - 
@@ -46,9 +44,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Floor
+    uniqueID: 3143997359
+    locked: 0
+  - name: FloorDecorations
+    uniqueID: 3303908403
+    locked: 0
+  - name: FloorCollisions
+    uniqueID: 1612426159
+    locked: 0
   - name: Trail
     uniqueID: 4045275795
     locked: 0
+  - name: Walls
+    uniqueID: 3511155315
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Objects
+    uniqueID: 4063170849
+    locked: 0
+  - name: TopOfObjects
+    uniqueID: 293085613
     locked: 0

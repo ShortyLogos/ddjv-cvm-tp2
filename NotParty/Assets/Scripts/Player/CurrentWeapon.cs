@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class CurrentWeapon : MonoBehaviour
 {
-    public GameObject weapon;
+    private GameObject weapon;
 
     private int weaponIndex = 0;
     private WeaponInventory inventory;
