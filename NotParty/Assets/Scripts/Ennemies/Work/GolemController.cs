@@ -41,7 +41,7 @@ public class GolemController : WorkController
         GameObject destination = GetFurthestObelisk();
         float teleportationWait = Random.Range(minTeleportationWait, maxTeleportationWait);
         StartCoroutine(CTeleport(destination, teleportationWait));
-        return specialAbilityDuration+teleportationWait;
+        return specialAbilityDuration+teleportationWait+animTimeObelisk;
     }
 
     private IEnumerator CTeleport(GameObject destination, float delai)
@@ -69,10 +69,10 @@ public class GolemController : WorkController
     {
         if (audioSource != null) audioSource.PlayOneShot(soundTeleportation);
         Instantiate(fxTeleportation, destination.transform.position, Quaternion.identity);
-        col.enabled = true;
         sprite.enabled = true;
         anim.SetTrigger("Reappear");
         yield return new WaitForSeconds(timeReappearAnim);
+        col.enabled = true;
         rig.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 

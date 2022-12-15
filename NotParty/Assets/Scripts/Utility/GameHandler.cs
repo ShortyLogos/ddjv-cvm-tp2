@@ -29,8 +29,6 @@ public class GameHandler : MonoBehaviour
 		// Get the player's actual score from the player's prefs, set the Game HUD & scale game
 		int score = highscoreHandler.LoadScore();
 		SetHighScore(score);
-		float difficulty = Mathf.Ceil((score / 3.0f));
-		PlayerPrefs.SetFloat("Difficulty", difficulty);
 
 		// Timer Start
 		remainingDuration = totalDuration;

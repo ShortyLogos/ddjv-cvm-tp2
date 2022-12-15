@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: Dwayne J.
   isWork: 1
+  difficultyMultiplier: 0.1
   damageTaken: 0
   maxHealth: 2500
   nbrThreshold: 4
@@ -186,8 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  maxSpeed: 2
-  minSpeed: 1
+  maxSpeed: 10
+  minSpeed: 6
   viewDistance: 5
   deathAnimDuration: 2.5
   specialAbilityDuration: 5
@@ -195,6 +196,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 776
   player: {fileID: 0}
+  minTeleportationWait: 0
+  maxTeleportationWait: 2
   fxTeleportation: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   soundTeleportation: {fileID: 8300000, guid: 6ba03b63b2138dd4d8ea6eb0b15cfdec, type: 3}
   audioSource: {fileID: 0}

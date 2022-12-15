@@ -21,10 +21,10 @@ public class UserSettings : MonoBehaviour
     {
         if (resolutionDropdown != null) BuildResolutionList();
         if (toggleDialogues != null) {
-            bool isActive = PlayerPrefs.GetString("PlayDialogue").Equals("True");
+            bool isActive = PlayerPrefs.GetString("PlayDialogue", "True").Equals("True");
             toggleDialogues.GetComponent<Toggle>().isOn = isActive;
         }
-        mixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("volume", -20.0f));
+        mixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("volume", 0f));
     }
 
     private void BuildResolutionList()

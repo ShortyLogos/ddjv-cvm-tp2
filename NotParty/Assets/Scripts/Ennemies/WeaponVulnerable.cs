@@ -13,6 +13,8 @@ public class WeaponVulnerable : MonoBehaviour
     private bool isWork;
 
     [SerializeField]
+    private float difficultyMultiplier = 0.1f;
+    [SerializeField]
     private float damageTaken;
     [SerializeField]
     private float maxHealth;
@@ -25,6 +27,7 @@ public class WeaponVulnerable : MonoBehaviour
     private int indexThreshold = 1;
     private float threshold = 0.0f;
     private bool immune = false;
+    
     private Color originalColor;
 
     // Start is called before the first frame update
@@ -34,17 +37,14 @@ public class WeaponVulnerable : MonoBehaviour
         if (handler != null && isWork)
         {
             gameHandler = handler.GetComponent<GameHandler>();
+            controller = GetComponent<WorkController>();
+            int score = PlayerPrefs.GetInt("score", 1);
+            float scale = score * difficultyMultiplier;
+            maxHealth += maxHealth * scale;
             gameHandler.SetMaxProgress(maxHealth);
             threshold = maxHealth / nbrThreshold;
         }
         sprite = GetComponent<SpriteRenderer>();
-        if (isWork)
-        {
-            controller = GetComponent<WorkController>();
-            float difficulty = PlayerPrefs.GetFloat("Difficulty", 1);
-            float scale = difficulty / 10;
-            maxHealth += maxHealth * scale;
-        }
         originalColor = GetComponent<SpriteRenderer>().color;
     }
 

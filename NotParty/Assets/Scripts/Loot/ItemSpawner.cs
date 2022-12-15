@@ -55,8 +55,10 @@ public class ItemSpawner : MonoBehaviour
             totalRatioItems += item.Rarity;
         }
 
+        //Make sure there's a weapon around the starting position for the player to pick early
         GameObject startingWeapon = GetRandomItem(ListType.Weapons).Prefab;
         PlaceObject(startingWeapon, new Vector3(Rdm.Range(spawnZoneX, spawnZoneX+spawnZoneSize), Rdm.Range(spawnZoneY,spawnZoneY+spawnZoneSize), 0));
+        
         StartCoroutine(CSpawnerWeapons());
         StartCoroutine(CSpawnerItems());
     }
@@ -67,10 +69,11 @@ public class ItemSpawner : MonoBehaviour
         PlaceObject(weapon);
     }
 
+    //Spawn the items on the player directly
     public void GiveLoot(GameObject loot)
     {
         Vector3 position = GameObject.Find("Map/Player").transform.position;
-        PlaceObject(loot, position);
+        PlaceObject(loot, position, false);
     }
 
     private void SpawnItem()
@@ -118,32 +121,50 @@ public class ItemSpawner : MonoBehaviour
 
     private GameObject PlaceObject(GameObject itemPrefab)
     {
-        int attempts = 0;
-        bool validPlacement = false;
-        Vector3 position = Vector3.zero;
-        while (!validPlacement)
-        {
-            attempts++;
-            float x = Rdm.Range(minX, maxX);
-            float y = Rdm.Range(minY, maxY);
-            position = new Vector3(x, y, 0);
-            validPlacement = Physics2D.OverlapCircle(position, radiusCheck, layerMask) == null;
-            if (attempts>maxAttempts)
-            {
-                Debug.LogWarning($"{attempts} attempts were made to spawn an item, should probably reduce placement's radius.");
-                break;
-            }
-        }
+        Vector3 position = getValidPosition(Vector3.zero);
         GameObject loot = Instantiate(itemPrefab, position, Quaternion.identity, transform);
         Instantiate(glowingEffect, loot.transform.position, Quaternion.identity, loot.transform);
         return loot;
     }
 
-    private GameObject PlaceObject(GameObject itemPrefab, Vector3 position)
+    private GameObject PlaceObject(GameObject itemPrefab, Vector3 wantedPosition, bool validation = true)
     {
-        GameObject loot = Instantiate(itemPrefab, position, Quaternion.identity, transform);
+        if (validation)
+        {
+            wantedPosition = getValidPosition(wantedPosition);
+        }
+        GameObject loot = Instantiate(itemPrefab, wantedPosition, Quaternion.identity, transform);
         Instantiate(glowingEffect, loot.transform.position, Quaternion.identity, loot.transform);
         return loot;
+    }
+
+    private Vector3 getValidPosition(Vector3 wantedPosition)
+    {
+        int attempts = 0;
+        bool validPlacement;
+        if (wantedPosition == Vector3.zero)
+        {
+            validPlacement = false;
+        }
+        else
+        {
+            validPlacement = Physics2D.OverlapCircle(wantedPosition, radiusCheck, layerMask) == null;
+        }
+        while (!validPlacement)
+        {
+            attempts++;
+            float x = Rdm.Range(minX, maxX);
+            float y = Rdm.Range(minY, maxY);
+            wantedPosition = new Vector3(x, y, 0);
+            validPlacement = Physics2D.OverlapCircle(wantedPosition, radiusCheck, layerMask) == null;
+            if (attempts > maxAttempts)
+            {
+                Debug.LogWarning($"{attempts} attempts were made to spawn an item, should probably reduce the radius check variable.");
+                wantedPosition = Vector3.zero;
+                break;
+            }
+        }
+        return wantedPosition;
     }
 
     private IEnumerator CSpawnerWeapons ()
