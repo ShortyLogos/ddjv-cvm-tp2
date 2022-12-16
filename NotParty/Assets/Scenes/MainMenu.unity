@@ -1199,17 +1199,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2851502072366724740, guid: 653a0787d8287d44e91c530ba0ca1027, type: 3}
   m_PrefabInstance: {fileID: 660124251}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &660124254 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6284599469977329676, guid: 653a0787d8287d44e91c530ba0ca1027, type: 3}
-  m_PrefabInstance: {fileID: 660124251}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0b652f32a2cc243917e4028fa0f046, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &685834627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +2004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: f9be6ec71a9fcaf439fd3eec9295c832, type: 2}
-  resolutionDropdown: {fileID: 660124254}
+  resolutionDropdown: {fileID: 0}
   toggleDialogues: {fileID: 660124253}
 --- !u!4 &1278877411
 Transform:
@@ -17302,6 +17291,7 @@ GameObject:
   - component: {fileID: 6780575681684040962}
   - component: {fileID: 889311466470109245}
   - component: {fileID: 2504933512188555985}
+  - component: {fileID: 6780575681684040968}
   m_Layer: 5
   m_Name: Desktop
   m_TagString: Untagged
@@ -17355,6 +17345,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &6780575681684040968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6780575681684040963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb88a70978ef764c9fe1a44ea2fcfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6780575682002634272
 GameObject:
   m_ObjectHideFlags: 0

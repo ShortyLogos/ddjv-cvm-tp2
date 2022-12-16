@@ -384,6 +384,7 @@ public class GameHandler : MonoBehaviour
 		audioSourceUI.PlayOneShot(defeatSound);
 		gameOver = true;
 		sceneHandler.TogglePause();
+		StopCoroutine(TrackTime());
 		defeatWindow.GetComponent<WindowController>().Open();
 	}
 
@@ -397,6 +398,7 @@ public class GameHandler : MonoBehaviour
 		sceneHandler.TogglePause();
 		highscoreHandler.IncreaseScore();
 		victoryWindow.GetComponent<WindowController>().Open();
+		EventManager.TriggerEvent("whenWin", true);
 	}
 
 	public void NextLevel()
