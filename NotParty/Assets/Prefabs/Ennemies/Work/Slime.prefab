@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: Flubber
   isWork: 1
+  difficultyMultiplier: 0.25
   damageTaken: 0
   maxHealth: 1500
   nbrThreshold: 6
