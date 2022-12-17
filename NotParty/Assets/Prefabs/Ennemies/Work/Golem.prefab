@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: Dwayne J.
   isWork: 1
-  difficultyMultiplier: 0.1
+  difficultyMultiplier: 0.25
   damageTaken: 0
   maxHealth: 2500
   nbrThreshold: 4

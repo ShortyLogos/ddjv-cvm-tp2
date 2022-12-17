@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: Pepe Montinus
   isWork: 1
+  difficultyMultiplier: 0.25
   damageTaken: 0
   maxHealth: 2000
   nbrThreshold: 4

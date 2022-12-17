@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private GameHandler gameHandler;
     private bool gamePaused = false;
     private UnityAction<object> lorsPause;
+    private UnityAction<object> whenWin;
 
     void Start()
     {
@@ -50,9 +51,9 @@ public class PlayerController : MonoBehaviour
         GameObject soundSource = GameObject.Find("GameHandling/UI/AudioSource");
         if (soundSource != null && audioSource == null) audioSource = soundSource.GetComponent<AudioSource>();
         dashing = false;
-        SpeedMultiplier = 1.0f;
-        EfficiencyMultiplier = 1.0f;
         mouvement.z = 0.0f;
+
+        Debug.Log(EfficiencyMultiplier);
     }
 
     void Update()
@@ -169,21 +170,33 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        SpeedMultiplier = PlayerPrefs.GetFloat("speed", 1.0f);
+        EfficiencyMultiplier = PlayerPrefs.GetFloat("efficiency", 1.0f);
         lorsPause = new UnityAction<object>(LorsPause);
+        whenWin = new UnityAction<object>(WhenWin);
     }
 
     private void OnEnable()
     {
         EventManager.StartListening("LorsPause", lorsPause);
+        EventManager.StartListening("whenWin", whenWin);
     }
 
     private void OnDisable()
     {
         EventManager.StopListening("LorsPause", lorsPause);
+        EventManager.StopListening("whenWin", whenWin);
     }
 
     private void LorsPause(object data)
     {
         gamePaused ^= true;
+    }
+
+    private void WhenWin(object data)
+    {
+        gamePaused ^= true;
+        PlayerPrefs.SetFloat("speed", SpeedMultiplier);
+        PlayerPrefs.SetFloat("efficiency", EfficiencyMultiplier);
     }
 }
